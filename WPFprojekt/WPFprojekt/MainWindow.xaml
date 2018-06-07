@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
         Title="Plibuda Lines Company" Height="550" Width="900">
+    <Window.BindingGroup>
+        <BindingGroup/>
+    </Window.BindingGroup>
     <Grid>
         <!-- główny grind!!!!!!!!! -->
-        <StackPanel x:Name="Panel" Orientation="Horizontal"  Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" >
+        <StackPanel x:Name="Panel" Orientation="Horizontal"  Height="35" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Menu  Background="Gainsboro">
                 <MenuItem x:Name="DodajRozwijaj" Header="Dodaj" Background="Gainsboro" FontSize="16" Height="35"  >
                     <MenuItem Header="Lotnisko" Click="Dodaj_Lotnisko"/>
@@ -25,16 +28,14 @@
                 <MenuItem x:Name="Rezerwuj" Header="Zarezerwuj/Kup bilet" FontSize="16" Click="FunkcjaRezerwuj"  Height="35" BorderBrush="Gainsboro"/>
                 <MenuItem x:Name="StronaGlowna" Header="Strona główna" FontSize="16" Click="WyswietlGlowna" BorderBrush="Gainsboro" />
             </Menu>
+            <TextBlock Text="Aktualna Data: " FontSize="24"/>
+            <TextBlock  x:Name="Data"    FontSize="24"  />
         </StackPanel>
         <Grid Margin="0,35,0,0">
-            
+
 
         </Grid>
-        
-        
-        
-        
-        
+
         <Frame x:Name="Okno" Margin="0,35,0,0" NavigationUIVisibility="Hidden"/>
 
 

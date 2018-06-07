@@ -30,7 +30,7 @@ namespace WPFprojekt
         {
             // tu musi wywołać sie funkcja dodawanania lotniska
 
-            
+            Wpisywanie.Text = "";
         }
     }
 }

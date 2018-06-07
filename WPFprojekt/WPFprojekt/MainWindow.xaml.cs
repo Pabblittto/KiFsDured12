@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WPFprojekt
 {
@@ -20,10 +21,38 @@ namespace WPFprojekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Firma GlownaFirma = new Firma();
+        
+        
+
         public MainWindow()
         {
             InitializeComponent();
-            Okno.Content = new Glowny();     
+            Okno.Content = new Glowny();
+
+            InitBinding();
+
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+        }
+
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+
+            Data.Text = GlownaFirma.WirtualnaDataAktualzacja();
+            //throw new NotImplementedException();
+        }
+
+        private void InitBinding()
+        {
+            GlownaFirma.AktualizacjaLotowCyklicznych();
+            Data.DataContext = GlownaFirma;
         }
         
 
@@ -46,6 +75,9 @@ namespace WPFprojekt
         {
             Okno.Content = new DodawanieKlientow(this);
         }
+
+
+     
     }
 
 

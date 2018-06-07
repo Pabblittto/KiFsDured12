@@ -54,6 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Rezerwacja.cs" />
+    <Compile Include="Samolot.cs" />
+    <Compile Include="Trasa.cs" />
+    <Compile Include="TypSamolotu.cs" />
+    <Compile Include="Wyjątek.cs" />
     <Page Include="DodawanieKlientow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,18 +89,26 @@
     <Compile Include="DodawanieLotnisk.xaml.cs">
       <DependentUpon>DodawanieLotnisk.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Firma.cs" />
     <Compile Include="Glowny.xaml.cs">
       <DependentUpon>Glowny.xaml</DependentUpon>
     </Compile>
     <Compile Include="Inny.xaml.cs">
       <DependentUpon>Inny.xaml</DependentUpon>
     </Compile>
+    <Compile Include="KlasaID.cs" />
+    <Compile Include="Klient.cs" />
+    <Compile Include="Lot.cs" />
+    <Compile Include="Lotnisko.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Osoba.cs" />
+    <Compile Include="PlanLotu.cs" />
+    <Compile Include="Posrednik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
