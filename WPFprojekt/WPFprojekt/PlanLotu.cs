@@ -11,14 +11,13 @@ namespace WPFprojekt
     public class PlanLotu
     {
         private DateTime CZasBazowy;// Czas przechowuje date ostatniego lotu który stworzył 
-        private TimeSpan CoIleLata;// co ile lata dany lot , najlepiej okrągłe wartości
-        private TimeSpan NaJakiPrzedzialczasu;// może tworzyć automatycznie loty na najbliższy tydzien na przykład- zawsze na najbliższy tydzień jest samolot
-        private Trasa Polaczenie;
-        private TypSamolotu RodzajSamolotu;
+        public TimeSpan CoIleLata { get; set; }// co ile lata dany lot , najlepiej okrągłe wartości
+        public TimeSpan NaJakiPrzedzialczasu { get; set; }// może tworzyć automatycznie loty na najbliższy tydzien na przykład- zawsze na najbliższy tydzień jest samolot
+        public Trasa Polaczenie { get; set; }
+        public TypSamolotu RodzajSamolotu { get; set; }
+        public Samolot Pojazd{ get; set; }
 
-
-        
-        public PlanLotu(DateTime PierwszyLot,TimeSpan _CoIleLata,Trasa Kierunek,TypSamolotu _RodzajSamolotu, TimeSpan NajakiPrzedzialCzasuTworzyc )
+    public PlanLotu(DateTime PierwszyLot,TimeSpan _CoIleLata,Trasa Kierunek,TypSamolotu _RodzajSamolotu, TimeSpan NajakiPrzedzialCzasuTworzyc, Samolot _Pojazd )
         {
             NaJakiPrzedzialczasu = NajakiPrzedzialCzasuTworzyc;
             Polaczenie = Kierunek;
@@ -26,6 +25,7 @@ namespace WPFprojekt
             CoIleLata = _CoIleLata;
             RodzajSamolotu = _RodzajSamolotu;
             PierwszyLot = PierwszyLot.Subtract(CoIleLata);// te odjęcie czasu wiąże się z sposobem dodawania nowych lotów
+            Pojazd = _Pojazd;
         }
 
         /// <summary>
@@ -48,6 +48,17 @@ namespace WPFprojekt
             else
                 return false;
         }
+
+
+        public void CzyzdarzyWrocic()
+        {
+
+
+
+
+
+        }
+
 
         /// <summary>
         /// Sprawdza czy trzeba dodać loty do Glownej listylotow

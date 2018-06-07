@@ -9,22 +9,19 @@ namespace WPFprojekt
     [Serializable]
     public class Lot : KlasaID
     {
-        // private string IDLotu;
-         private string IDSamolotu;// id konkretnego zamolotu, który obsługuje lot 
+         public string IDLotu { get; set; }
+        public string IDSamolotu { get; set; }// id konkretnego zamolotu, który obsługuje lot 
 
-         private List<RezerwcjaBilet> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
+        private List<RezerwcjaBilet> ListaRezerwacji; // lista rezerwacji określa również liste/liczbe klientów lecących tym samolotem
          private List<string> LNIDRezerwacjiBiletow;
 
-        private Trasa Droga;
-        private TypSamolotu Pojazd;// typ samolotu, ponieważ on przechowuje prekość, ładowność itd.
-        private TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
-        private DateTime DataGodzinaWylotu;
+        public Trasa Droga { get; set; }
+        public TypSamolotu Pojazd { get; set; }// typ samolotu, ponieważ on przechowuje prekość, ładowność itd.
+        public TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
+        public DateTime DataGodzinaWylotu;
 
         public Boolean CzyMaWracac;// zmienna określająca czy ma wrocić, koncepcja lotu polega na tym że leci do miejsca docelowego , a później wraca, tworzy to dwa połączenia , można w sumie wywalić i trzeba określać loty w dwie strony oddzielnie
-      /*  ~Lot(){
-            this.GetSamolot().ZmianaDostepu();// kiedu Lot jest usuwany samolot jest zwalniany
-        }
-        */
+
 
         /// <summary>
         /// Podstawowy konstruktor do lotu
@@ -64,7 +61,8 @@ namespace WPFprojekt
             this.LNIDRezerwacjiBiletow = new List<string>();
             this.ListaRezerwacji = new List<RezerwcjaBilet>();
             IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat żeby przez chwile samolt był dostępny ten cheat się komplikuje wiestety , lepiej nie ruszać
-            this.SetPojazd(IstniejacyLOt.GetTypSamolotu(),IstniejacyLOt.GetSamolot().GetIDWlasne());
+            this.SetPojazd(IstniejacyLOt.GetTypSamolotu());
+            this.SetIDSamolotuWLocie(IstniejacyLOt.GetSamolot().GetIDWlasne());
             IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat 
             this.DataGodzinaWylotu = IstniejacyLOt.DataLądowaniaDateTime().Add(IloscCzasuDoStartuLiczonaOdMomentuLondowania);
             this.CzasLotu = IstniejacyLOt.GetCzasLotu();
@@ -85,12 +83,11 @@ namespace WPFprojekt
         ///  funkcja od razu liczy nowy czas przelotu danej trasy
         /// </summary>
         /// <returns></returns>
-        public Boolean SetPojazd(TypSamolotu TypPojazdu,string IDPojazdu)//  nie jest w konstruktorze ponieważ zwraca booleana
+        public Boolean SetPojazd(TypSamolotu TypPojazdu)//  nie jest w konstruktorze ponieważ zwraca booleana
         {
-            if (TypPojazdu.GetZasieg() >= Droga.GetOdleglosc() && TypPojazdu.GetSAmolotOID(IDPojazdu).GetCzyDostepny()==true)
+            if (TypPojazdu.GetZasieg() >= Droga.GetOdleglosc())
             {
                 Pojazd = TypPojazdu;
-                IDSamolotu = IDPojazdu;
                 double czas = Droga.GetOdleglosc() / Pojazd.GetPredkosc();// czas wychodzi w godz z minutamie po przecinku
                 czas = Math.Round(czas, 2);
                 double min = (czas % 1) * 60;// minuty w formiacie 0,xx więc trzeba pomnożyć razy 60
@@ -101,6 +98,27 @@ namespace WPFprojekt
             else
                 return false;
         }
+
+        /// <summary>
+        /// Ustawienie Samolotu dla danego lotu , zwraca true jeżlei ustawienie sie udało , zwraca false jeżeli samolot jest niedostępby lub jeżeli jest cykliczny
+        /// Funkcja zmienia dostępnośc samolotu na false
+        /// </summary>
+        /// <param name="IDPojazdu"></param>
+        /// <returns></returns>
+        public Boolean SetIDSamolotuWLocie(string IDPojazdu)
+        {
+            if (Pojazd.GetSAmolotOID(IDPojazdu).CzyDostepny == true && Pojazd.GetSAmolotOID(IDPojazdu).Cykliczny==false)
+            {
+                
+                IDSamolotu = IDPojazdu;
+                this.GetSamolot().CzyDostepny = false;
+                return true;
+            }
+            else
+                return false;
+        }
+
+
 
 
         public TimeSpan GetCzasLotu()

@@ -12,14 +12,12 @@ namespace WPFprojekt
     [Serializable]
    public class Lotnisko
     {
-        private string IDLotniska;
-
+        public string IDLotniska { get; set; }
 
         public Lotnisko(string ID)
         {
             IDLotniska = ID;
         }
-
         public string GetIDLotniska()
         {
             return IDLotniska;

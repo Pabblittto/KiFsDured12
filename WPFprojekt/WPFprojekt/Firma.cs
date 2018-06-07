@@ -12,7 +12,7 @@ namespace WPFprojekt
     public class Firma  
     {
 
-        public DateTime WirtualnaData { get; set; }// będe tego później potrzebował, i w firmie bede pisał ewentualnie rózne funkcje odnośnie czasu~Pabblo
+        public DateTime WirtualnaData { get; set; }
         
         private TimeSpan Dodawanyczas = new TimeSpan(0,1,0);
         private DateTime Aktualnyczas;// czas potrzebny do sprawdzania czy minneła sekunda
@@ -102,12 +102,47 @@ namespace WPFprojekt
         /// <typeparam name="Typ"></typeparam>
         /// <param name="ListaDanych"></param>
         /// <param name="LNIDDanych"></param>
-        /// <param name="UsuwanyObjekt"></param>
-        public void UsunZListy<Typ>(List<Typ> ListaDanych,List<string> LNIDDanych, Typ UsuwanyObjekt) where Typ: KlasaID
+        /// <param name="UsuwanyObiekt"></param>
+        public void UsunZListy<Typ>(List<Typ> ListaDanych,List<string> LNIDDanych, Typ UsuwanyObiekt) where Typ: KlasaID
         {
-            LNIDDanych.Add(UsuwanyObjekt.GetIDWlasne());
-            ListaDanych.Remove(UsuwanyObjekt);
+            LNIDDanych.Add(UsuwanyObiekt.GetIDWlasne());
+            ListaDanych.Remove(UsuwanyObiekt);
         }// trzeba to przetestować
+
+        public void ZwolnijSamolotZLOtu(Lot Obiekt)
+        {
+            Obiekt.GetSamolot().CzyDostepny = true;
+        }
+
+        /// <summary>
+        /// Funkcja zwraca true jeżeli Istnieje dane lotnisko z NazwaIDLotniska na liście
+        /// </summary>
+        /// <param name="NazwaIDLotniska"></param>
+        /// <returns></returns>
+        public Boolean CZyLotniskoIstnieje(string NazwaIDLotniska)
+        {
+            if (this.ListaLotnisk.Count() != 0)
+            {
+                foreach (Lotnisko Obiekt in this.ListaLotnisk)
+                {
+                    if (Obiekt.IDLotniska == NazwaIDLotniska)
+                        return true;        
+                }
+                    return false;
+            }
+            else
+               return false;
+        }
+        /// <summary>
+        /// Funkcja do dodawania lotnisk do lity
+        /// </summary>
+        /// <param name="Dodawane"></param>
+        public void DodajLotnisko(Lotnisko Dodawane)
+        {
+            this.ListaLotnisk.Add(Dodawane);
+        }
+
+
 
         /// <summary>
         ///Funkcja sprawdza czy nie trzeba dorobić lotów cylklicznych 
