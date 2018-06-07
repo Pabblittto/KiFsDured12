@@ -76,11 +76,19 @@ namespace WPFprojekt
             Okno.Content = new DodawanieKlientow(this);
         }
 
-
-     
+        private void Okno_DodajKlienta(object sender, RoutedEventArgs e)
+        {
+            DodajKlienta oknoKlient = new DodajKlienta();
+            oknoKlient.Owner = this;
+            oknoKlient.ShowDialog();
+            oknoKlient = null;
+        }
+        private void Okno_DodajLotnisko(object sender, RoutedEventArgs e)
+        {
+            DodajLotnisko oknoLotnisko = new DodajLotnisko();
+            oknoLotnisko.Owner = this;
+            oknoLotnisko.ShowDialog();
+            oknoLotnisko = null;
+        }
     }
-
-
-
-
 }
