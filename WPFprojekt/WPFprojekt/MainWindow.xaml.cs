@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WPFprojekt
 {
@@ -22,7 +23,7 @@ namespace WPFprojekt
     {
         public Firma GlownaFirma = new Firma();
         
-
+        
 
         public MainWindow()
         {
@@ -31,11 +32,21 @@ namespace WPFprojekt
 
             InitBinding();
 
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+        }
 
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
 
-
-
+            Data.Text = GlownaFirma.WirtualnaDataAktualzacja();
+            //throw new NotImplementedException();
         }
 
         private void InitBinding()

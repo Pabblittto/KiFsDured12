@@ -14,23 +14,25 @@ namespace WPFprojekt
 
         public DateTime WirtualnaData { get; set; }// będe tego później potrzebował, i w firmie bede pisał ewentualnie rózne funkcje odnośnie czasu~Pabblo
         
-        private TimeSpan Dodawanyczas = new TimeSpan(0, 1,0);
-        private DateTime Aktualnyczas = DateTime.Now;// czas potrzebny do sprawdzania czy minneła sekunda
+        private TimeSpan Dodawanyczas = new TimeSpan(0,1,0);
+        private DateTime Aktualnyczas;// czas potrzebny do sprawdzania czy minneła sekunda
 
-        public void WirtualnaDataAktualzacja()
+        public String WirtualnaDataAktualzacja()
         {
             if(Aktualnyczas.Second!=DateTime.Now.Second)
             {
                 Aktualnyczas = DateTime.Now;
-                WirtualnaData.Add(Dodawanyczas);
-                
+                WirtualnaData=WirtualnaData.Add(Dodawanyczas);
+
             }
+             return WirtualnaData.ToString();
         }
 
 
         public Firma()
         {
             WirtualnaData = new DateTime(2012,8,12,12,8,0);
+            Aktualnyczas = DateTime.Now;
         }
         /// <summary>
         /// NOOOO panowie rozjebaneeeee , to działa tak , w typie wpisujesz czemu chcesz przydzielić ID to działa z trzeba klasami : Samolot, Lot i Klient, w Lista danych 
