@@ -15,7 +15,7 @@
                     <MenuItem Header="Trasa"/>
                     <MenuItem Header="Lot jednorazowy"/>
                     <MenuItem Header="Lot cykliczny"/>
-                    <MenuItem Header="Klient"/>
+                    <MenuItem Header="Klient" Click="Dodaj_Klienta"/>
                     <MenuItem Header="Samolot">
                         <MenuItem Header="Typ"/>
                         <MenuItem Header="Model"/>

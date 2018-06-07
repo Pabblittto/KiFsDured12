@@ -16,21 +16,21 @@ using System.Windows.Shapes;
 namespace WPFprojekt
 {
     /// <summary>
-    /// Interaction logic for DodawanieLotnisk.xaml
+    /// Logika interakcji dla klasy DodawanieKlientow.xaml
     /// </summary>
-    public partial class DodawanieLotnisk : Page
+    public partial class DodawanieKlientow : Page
     {
-        public DodawanieLotnisk(MainWindow Okno)
+        public DodawanieKlientow(MainWindow Okno)
         {
             InitializeComponent();
 
-        }
 
-        private void DodajLot_Click(object sender, RoutedEventArgs e)
+        }
+        private void DodajKlienta_Click(object sender, RoutedEventArgs e)
         {
             // tu musi wywołać sie funkcja dodawanania lotniska
 
-            
+
         }
     }
 }

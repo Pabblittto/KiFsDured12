@@ -41,6 +41,11 @@ namespace WPFprojekt
         {
             Okno.Content = new DodawanieLotnisk(this);
         }
+
+        private void Dodaj_Klienta(object sender, RoutedEventArgs e)
+        {
+            Okno.Content = new DodawanieKlientow(this);
+        }
     }
 
 
