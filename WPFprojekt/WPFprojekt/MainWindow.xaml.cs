@@ -23,6 +23,27 @@ namespace WPFprojekt
         public MainWindow()
         {
             InitializeComponent();
+            Okno.Content = new Glowny();     
+        }
+        
+
+        private void FunkcjaRezerwuj(object sender, RoutedEventArgs e)
+        {
+            Okno.Content = new Inny();
+        }
+
+        private void WyswietlGlowna(object sender, RoutedEventArgs e)
+        {
+            Okno.Content = new Glowny();
+        }
+
+        private void Dodaj_Lotnisko(object sender, RoutedEventArgs e)
+        {
+            Okno.Content = new DodawanieLotnisk(this);
         }
     }
+
+
+
+
 }

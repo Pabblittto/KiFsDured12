@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Plibuda Lines Company" Height="550" Width="900">
     <Grid>
+        <!-- główny grind!!!!!!!!! -->
+        <StackPanel x:Name="Panel" Orientation="Horizontal"  Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" >
+            <Menu  Background="Gainsboro">
+                <MenuItem x:Name="DodajRozwijaj" Header="Dodaj" Background="Gainsboro" FontSize="16" Height="35"  >
+                    <MenuItem Header="Lotnisko" Click="Dodaj_Lotnisko"/>
+                    <MenuItem Header="Trasa"/>
+                    <MenuItem Header="Lot jednorazowy"/>
+                    <MenuItem Header="Lot cykliczny"/>
+                    <MenuItem Header="Klient"/>
+                    <MenuItem Header="Samolot">
+                        <MenuItem Header="Typ"/>
+                        <MenuItem Header="Model"/>
+                    </MenuItem>
+                    <Separator/>
+                </MenuItem>
+                <MenuItem x:Name="Rezerwuj" Header="Zarezerwuj/Kup bilet" FontSize="16" Click="FunkcjaRezerwuj"  Height="35" BorderBrush="Gainsboro"/>
+                <MenuItem x:Name="StronaGlowna" Header="Strona główna" FontSize="16" Click="WyswietlGlowna" BorderBrush="Gainsboro" />
+            </Menu>
+        </StackPanel>
+        <Grid Margin="0,35,0,0">
+            
+
+        </Grid>
         
+        
+        
+        
+        
+        <Frame x:Name="Okno" Margin="0,35,0,0" NavigationUIVisibility="Hidden"/>
+
+
+
     </Grid>
 </Window>
