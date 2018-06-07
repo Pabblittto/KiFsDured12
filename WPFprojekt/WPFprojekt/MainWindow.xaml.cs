@@ -22,8 +22,7 @@ namespace WPFprojekt
     public partial class MainWindow : Window
     {
         public Firma GlownaFirma = new Firma();
-        
-        
+
 
         public MainWindow()
         {
@@ -96,6 +95,13 @@ namespace WPFprojekt
             oknoTypSamolotu.Owner = this;
             oknoTypSamolotu.ShowDialog();
             oknoTypSamolotu = null;
+        }
+        private void Okno_DodajTrase(object sender, RoutedEventArgs e)
+        {
+            DodajTrase oknoTrasa = new DodajTrase();
+            oknoTrasa.Owner = this;
+            oknoTrasa.ShowDialog();
+            oknoTrasa = null;
         }
     }
 }

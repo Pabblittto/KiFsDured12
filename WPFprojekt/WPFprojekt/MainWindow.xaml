@@ -13,7 +13,7 @@
             <Menu  Background="Gainsboro">
                 <MenuItem x:Name="DodajRozwijaj" Header="Dodaj" Background="Gainsboro" FontSize="16" Height="35"  >
                     <MenuItem Header="Lotnisko" Click="Okno_DodajLotnisko"/>
-                    <MenuItem Header="Trasa"/>
+                    <MenuItem Header="Trasa" Click="Okno_DodajTrase"/>
                     <MenuItem Header="Lot jednorazowy"/>
                     <MenuItem Header="Lot cykliczny"/>
                     <MenuItem Header="Klient" Click="Okno_DodajKlienta"/>
