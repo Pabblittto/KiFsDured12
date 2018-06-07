@@ -20,10 +20,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Wpisz nazwe lotniska:" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="24" />
-            <TextBox Grid.Column="1" Grid.Row="0" FontSize="24" Height="40"/>
+            <TextBox x:Name="Wpisywanie" Grid.Column="1" Grid.Row="0" FontSize="24" Height="40"/>
             <Button x:Name="DodajLot" Content="DodajLotnisko" Grid.Column="1" Grid.Row="1" Click="DodajLot_Click"/>
-
-
 
         </Grid>
         

@@ -20,10 +20,28 @@ namespace WPFprojekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Firma GlownaFirma = new Firma();
+        
+
+
         public MainWindow()
         {
             InitializeComponent();
-            Okno.Content = new Glowny();     
+            Okno.Content = new Glowny();
+
+            InitBinding();
+
+
+
+
+
+
+        }
+
+        private void InitBinding()
+        {
+            GlownaFirma.AktualizacjaLotowCyklicznych();
+            Data.DataContext = GlownaFirma;
         }
         
 
@@ -46,6 +64,9 @@ namespace WPFprojekt
         {
             Okno.Content = new DodawanieKlientow(this);
         }
+
+
+     
     }
 
 
