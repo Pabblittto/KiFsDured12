@@ -294,6 +294,7 @@ namespace WPFprojekt
                     bin.Serialize(strumien, LNIDLotow);
                     bin.Serialize(strumien, ListaPlanowLotu);
                     bin.Serialize(strumien, WirtualnaData);
+                    bin.Serialize(strumien, ListaOdbytychLotow);
                 }
             }
             catch (IOException)
@@ -317,7 +318,7 @@ namespace WPFprojekt
                 LNIDLotow = (List<string>)bin.Deserialize(strumien);
                 ListaPlanowLotu = (List<PlanLotu>)bin.Deserialize(strumien);
                 WirtualnaData = (DateTime)bin.Deserialize(strumien);
-
+                ListaOdbytychLotow = (List<Lot>)bin.Deserialize(strumien);
             }
         }
  
