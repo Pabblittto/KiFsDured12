@@ -17,16 +17,19 @@ namespace WPFprojekt
 
         public Trasa Droga { get; set; }
         public TypSamolotu Pojazd { get; set; }// typ samolotu, ponieważ on przechowuje prekość, ładowność itd.
-        public TimeSpan CzasLotu; //  ten czas jest liczony i wklepywany przez funkcje
-        public DateTime DataGodzinaWylotu;
+        public TimeSpan CzasLotu { get; set; } //  ten czas jest liczony i wklepywany przez funkcje
+        public DateTime DataGodzinaWylotu { get; set; }
+        public DateTime DataLadowania { get; set; }
 
+        public Boolean CzyLotNalezyDoCyklicznych;
         public Boolean CzyMaWracac;// zmienna określająca czy ma wrocić, koncepcja lotu polega na tym że leci do miejsca docelowego , a później wraca, tworzy to dwa połączenia , można w sumie wywalić i trzeba określać loty w dwie strony oddzielnie
-
+        public Boolean CzyWlocie = false;
+        public Boolean CzyzablokowaneBookowanie = false;
 
         /// <summary>
         /// Podstawowy konstruktor do lotu
         /// </summary>
-        public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl,Boolean _CZyMawracac )
+        public Lot(string ID, Trasa _Droga,int RokWylot,int MiesWyl,int DzienWyl, int GodzWyl, int MinWyl,Boolean _CZyMawracac, Boolean CzyCykliczny)
         {
             LNIDRezerwacjiBiletow = new List<string>();
             ListaRezerwacji = new List<RezerwcjaBilet>();
@@ -36,21 +39,7 @@ namespace WPFprojekt
             Pojazd = null;// to też pomaga stwierdzić czy istnieje samolot który jest zapisany do trasy
             CzasLotu = new TimeSpan(0, 0, 0);//dzięki temu wiemy że na początku nie ma konkretnego samolotu który obsługuje ta trase
             CzyMaWracac = _CZyMawracac;
-
-        }
-        /// <summary>
-        /// konstruktor kopiujący, jeżeli chcemy zrobić taki sam lot przesunięty w czasie o Jakiś przedział czasu
-        /// </summary>
-        public Lot(Lot IstniejącyLot,TimeSpan OjakiCZasPrzesuniety, String _IDLotu)
-        {
-            LNIDRezerwacjiBiletow = new List<string>();
-            ListaRezerwacji = new List<RezerwcjaBilet>();
-            SetID(_IDLotu);
-            Droga = IstniejącyLot.GetDroga();
-            DataGodzinaWylotu = IstniejącyLot.GetDataWylDT();
-             DataGodzinaWylotu= DataGodzinaWylotu.Add(OjakiCZasPrzesuniety);
-            Pojazd = null;
-            CzasLotu = new TimeSpan(0, 0, 0);
+            CzyLotNalezyDoCyklicznych = CzyCykliczny;
 
         }
         /// <summary>
@@ -60,20 +49,14 @@ namespace WPFprojekt
         {
             this.LNIDRezerwacjiBiletow = new List<string>();
             this.ListaRezerwacji = new List<RezerwcjaBilet>();
-            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat żeby przez chwile samolt był dostępny ten cheat się komplikuje wiestety , lepiej nie ruszać
-            this.SetPojazd(IstniejacyLOt.GetTypSamolotu());
+
+            IstniejacyLOt.GetSamolot().CzyDostepny=true;// taki cheat żeby przez chwile samolt był dostępny ten cheat się komplikuje wiestety , lepiej nie ruszać
+            this.SetPojazd(IstniejacyLOt.Pojazd);
             this.SetIDSamolotuWLocie(IstniejacyLOt.GetSamolot().GetIDWlasne());
-            IstniejacyLOt.GetSamolot().ZmianaDostepu();// taki cheat 
+            IstniejacyLOt.GetSamolot().CzyDostepny=false;// taki cheat 
             this.DataGodzinaWylotu = IstniejacyLOt.DataLądowaniaDateTime().Add(IloscCzasuDoStartuLiczonaOdMomentuLondowania);
             this.CzasLotu = IstniejacyLOt.GetCzasLotu();
             this.Droga = new Trasa(IstniejacyLOt.GetDroga());
-
-        }
-
-
-        public TypSamolotu GetTypSamolotu()
-        {
-            return Pojazd;
         }
 
 
@@ -92,7 +75,7 @@ namespace WPFprojekt
                 czas = Math.Round(czas, 2);
                 double min = (czas % 1) * 60;// minuty w formiacie 0,xx więc trzeba pomnożyć razy 60
                 CzasLotu = new TimeSpan((int)czas,(int)min,0);// zero na końcu- to sekundy nieistotne w programie
-                this.GetSamolot().ZmianaDostepu();
+                DataLadowania = this.DataLądowaniaDateTime();
                 return true;
             }
             else
@@ -112,13 +95,27 @@ namespace WPFprojekt
                 
                 IDSamolotu = IDPojazdu;
                 this.GetSamolot().CzyDostepny = false;
+                this.GetSamolot().Cykliczny = true;
+                this.GetSamolot().CoObsluguje = this;
                 return true;
             }
             else
                 return false;
         }
 
-
+        /// <summary>
+        ///Funkcja wysyłająca w kosmos jeżeli przyjdzie na to czas
+        /// </summary>
+        public void WyslijWKosmos(DateTime AktualnaData)
+        {
+            if (CzyWlocie == false)
+            {
+                if (AktualnaData.CompareTo(DataGodzinaWylotu) >= 0)
+                {
+                    CzyWlocie = true;
+                }
+            }
+        }
 
 
         public TimeSpan GetCzasLotu()
@@ -214,7 +211,23 @@ namespace WPFprojekt
             throw new Wyjatek("Nie ma Samolotu na liście typów !!");// bardzo specyficzny wyjątek , ktoś usuną samolot, który obsługiwał tą trasę co powinno być nie możliwe-
                                                                     // w catchu proponuje napisać krótką funkcję zmieniającą pole "Pojazd" na null!!!-Ważne
         }
-
+        /// <summary>
+        /// Funkcja zrwaca true jeżlei lot wylądował i mozna go usunąć
+        /// </summary>
+        /// <param name="Aktualnyczas"></param>
+        /// <returns></returns>
+        public Boolean CzyWyladowal(DateTime Aktualnyczas)
+        {
+            if (CzyzablokowaneBookowanie == true && CzyWlocie == true && Pojazd!=null)
+            {
+                if (Aktualnyczas.CompareTo(this.DataLadowania) >= 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
 
         /// <summary>
         /// DAta lądowania liczona na podstawie czasu lotu podawana w Stringu
@@ -293,6 +306,21 @@ namespace WPFprojekt
             throw new Wyjatek("Bardzo poważny problem , dwa bilety mają ten sam numer miejsca co nie powinno mić miejsca!");// poważny błąd, raczej nie trzeba go obsługiwac , napisany po to żeby 
                                                                                                                             // zawiadomic że wystąpił błąd logiczny i trzeba popatrzeć w kodzik- możliwe że jakieś 
                                                                                                                             //id z kosza zostało dane na koniec listy i tworzą się kopie id które juz jest na liści
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AktualnaData"></param>
+        public void BlokujRezerwacje(DateTime AktualnaData)
+        {
+            if(CzyzablokowaneBookowanie==false)
+            {
+            if (AktualnaData.CompareTo(DataGodzinaWylotu.Subtract(new TimeSpan(1, 0, 0))) >=0)
+                    {
+                    CzyzablokowaneBookowanie = true;
+                    }
+            }
         }
 
 

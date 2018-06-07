@@ -15,9 +15,9 @@ namespace WPFprojekt
         private Lotnisko Lotnisko1;
         private Lotnisko Lotnisko2;
 
-        private int Odleglosc;// podawana w km
+        public int Odleglosc { get; set; }// podawana w km
 
-        private string IDTrasy;
+        public string IDTrasy { get; set; }
 
         public Trasa(Lotnisko Lot1, Lotnisko Lot2, int odleg)
         {

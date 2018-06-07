@@ -31,7 +31,7 @@ namespace WPFprojekt
 
         public Firma()
         {
-            WirtualnaData = new DateTime(2012,8,12,12,8,0);
+            WirtualnaData = new DateTime(2012,8,12,12,8,0);//tą date trzeba wywalić tyz po piewrszych zapisach , odczytach , żeby była stała
             Aktualnyczas = DateTime.Now;
         }
         /// <summary>
@@ -64,7 +64,75 @@ namespace WPFprojekt
             }
         }// działa
 
+        /// <summary>
+        /// Funkcja która blokuje rezerwacje w lotach które mają się odbyć za 1 godz, automatyczna
+        /// </summary>
+        public void BlokujRezerwacje()
+        {
+            for (int i = 0; i < ListaLotow.Count(); i++)
+            {
+                ListaLotow[i].BlokujRezerwacje(WirtualnaData);
+            }
+        }
         
+
+        /// <summary>
+        /// Funkcja Wysyłająca w powietrze samoloty na podstawie nadanego czasu, automatyczna
+        /// </summary>
+        public void WyslijWKosmos()
+        {
+            for (int i = 0; i < ListaLotow.Count(); i++)
+            {
+                ListaLotow[i].WyslijWKosmos(WirtualnaData);
+            }
+
+        }
+
+        public void UsunPlanLotu(PlanLotu Obiekt)
+        {
+            //funkcja co zwalnia pole samolotu czycykliczny z true/ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
+
+
+
+        /// <summary>
+        /// Usuwa Lot całkowicie- wywala z Listy lotów odbytych po 2 godzinach od landowania, funkcja automatyczna
+        /// </summary>
+        public void SprawdzenieStanuOdbytychLotow()
+        {
+            foreach (Lot Obiekt in ListaOdbytychLotow)
+            {
+                if(Aktualnyczas.CompareTo(Obiekt.DataLadowania.Add(new TimeSpan(2,0,0)))>=0)
+                {
+                    ListaOdbytychLotow.Remove(Obiekt);
+                }
+            }
+
+        }
+        /// <summary>
+        /// Funkcja Przelatuje przez Liste lotów i tworzy nowy lot jeżeli ten leci w drują stonę wsadza odbyte loty do listy odbytych, automatycznie
+        /// </summary>
+        public void SprawdzanieStanuLotow()
+        {
+            foreach (Lot Obiekt in ListaLotow)
+            {
+                if(Obiekt.CzyWyladowal(Aktualnyczas)==true)
+                {
+                    if(Obiekt.CzyMaWracac==true)
+                    {
+                        Lot tmp = new Lot(Obiekt, PrzydzielanieID(ListaLotow, LNIDLotow),new TimeSpan(3,0,0));
+                        DodawanieDoListy(ListaLotow, tmp);
+                    }
+                    ListaOdbytychLotow.Add(Obiekt);
+                    ZwolnijSamolotZLOtu(Obiekt);
+                    UsunZListy(ListaLotow, LNIDLotow,Obiekt);
+                }
+            }
+        }
+
+
+
 
         /// <summary>
         /// Funkcja do porównywania ID dwóch objektów pojektów, jeżeli Objekt1 ma większe ID funkcja zwraca true
@@ -141,8 +209,23 @@ namespace WPFprojekt
         {
             this.ListaLotnisk.Add(Dodawane);
         }
+         public void UsunLotniskoZOdpowiednimID(int NRid)
+        {
+            this.ListaLotnisk.Remove(ListaLotnisk[NRid]);
+        }
 
-
+        /// <summary>
+        /// Zwraca true jeżeli Lotniska są identyczne
+        /// </summary>
+        /// <param name="Lotnis1"></param>
+        /// <param name="Lotnis2"></param>
+        public Boolean CzyLotniskaRozne(Lotnisko Lotnis1,Lotnisko Lotnis2 )
+        {
+            if (Lotnis1 == Lotnis2)
+                return true;
+            else
+                return false;
+        }
 
         /// <summary>
         ///Funkcja sprawdza czy nie trzeba dorobić lotów cylklicznych 
@@ -183,6 +266,7 @@ namespace WPFprojekt
         public List<string> LNIDLotow = new List<string>();
         public List<string> LNIDKlientow = new List<string>();
 
+        public List<Lot> ListaOdbytychLotow = new List<Lot>();// lista odbytych lotów bedzie trzymać obiekty przez następną godzinę lub dwie , później się wywali całkowicie
         public List<PlanLotu> ListaPlanowLotu = new List<PlanLotu>();
         public List<Lotnisko> ListaLotnisk=new List<Lotnisko>(); // zmienione na public żeby zrobić test
         public List<TypSamolotu> ListaTypow=new List<TypSamolotu>();
@@ -190,193 +274,9 @@ namespace WPFprojekt
         public List<Lot> ListaLotow=new List<Lot>();
         public List<Klient> ListaKlientow=new List<Klient>();
         //szybka notka jeszcze sprobuej ogarnac czy nie da sie jakos tych metod sprowadzic do takiej co by pobierala tylko parametry zeby nie bylo tego samego tysiac razy
-/*
-        public Boolean DodajTyp(string Nazwa, int _Zasieg, int _Predkosc, int IlMiejsc, int IlMiejscVip)
-        {
-            if (ListaTypow.Count() != 0)
-            {
-                foreach (TypSamolotu Obiekt in ListaTypow)
-                {
-                    if (Obiekt.GetNazwaModelu() == Nazwa)
-                        return false;
-                }
-            }
-           
-            ListaTypow.Add(new TypSamolotu(Nazwa,_Zasieg,_Predkosc,IlMiejsc,IlMiejscVip));
-            return true;
-        }
-        public Boolean UsunTyp(string NazwaTypu)
-        {
-            if (ListaTypow.Count() != 0)
-            {
-                for (int i = 0; i < ListaTypow.Count(); i++)
-                {
-                    if (ListaTypow[i].GetNazwaModelu() == NazwaTypu)
-                    {
-                        ListaTypow.Remove(ListaTypow[i]);  //nie jestem pewien czy remove czy delete wiec zostanie na razie remove. jeszcze ogarne
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public void PrzegladTypow()
-        {
-            if (ListaTypow.Count() != 0)
-            {
-                for (int i = 0; i < ListaSamolotow.Count(); i++)
-                {
-                    //wypluwa kolejne typy na ekran
-                }
-            }
-            else
-            {
-                //wypluwa komunikat o braku typow
-            }
-            
-        }
-        public Boolean DodajLotnisko(string id)
-        {
-            if (ListaLotnisk.Count() != 0)
-            {
-                foreach (Lotnisko Obiekt in ListaLotnisk)
-                {
-                    if (Obiekt.GetIDLotniska() == id)
-                        return false;
-                }
-            }
 
-            ListaLotnisk.Add(new Lotnisko(id));
-            return true;
-        }
-        public Boolean UsunLotnisko(string id)
-        {
-            if (ListaLotnisk.Count() != 0)
-            {
-                for (int i = 0; i < ListaLotnisk.Count(); i++)
-                {
-                    if (ListaLotnisk[i].GetIDLotniska() == id)
-                    {
-                        ListaLotnisk.Remove(i);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public void PrzegladLotnisk()
-        {
-            if (ListaLotnisk.Count() != 0)
-            {
-                for (int i = 0; i < ListaLotnisk.Count(); i++)
-                {
-                    //wypluwa kolejne lotniska na ekran
-                }
-            }
-            else
-            {
-                //wypluwa komunikat o braku lotnisk
-            }
+         
 
-        }
-        public Boolean DodajTrase(Lotnisko L1, Lotnisko L2,int odleglosc)
-        {
-            if (ListaTras.Count() != 0)
-            { 
-                foreach (Trasa Obiekt in ListaTras)
-                {
-                    int CzyIstnieje=0;
-                    String[] RozbitaNazwa=Obiekt.GetIDTrasy.Split('-');// rozbija ID lotniska na podstawie jego tworzenia a potem sprawdza czy pomiedzy dwoma danymi lotniskami juz jest polaczenia
-                       foreach(var Podciag in RozbitaNazwa)
-                    {
-                        if(String.Compare(Podciag,L1.GetIDLotniska,true)==0|| String.Compare(Podciag, L2.GetIDLotniska, true) == 0) // truew porownywaniu ignoruje wielkosc znakow
-                        {
-                            CzyIstnieje++;
-                        }
-                    }
-                    if (CzyIstnieje == 2)
-                        return false;
-                }
-            }
-
-            ListaTras.Add(new Trasa(L1,L2,odleglosc));
-            return true;
-        }
-        public Boolean UsunTrase(string id)
-        {
-            if (ListaLotnisk.Count() != 0)
-            {
-                for (int i = 0; i < ListaTras.Count(); i++)
-                {
-                    if (ListaTras[i].GetIDTrasy() == id)
-                    {
-                        ListaLotnisk.Remove(i);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public void PrzegladTras()
-        {
-            if (ListaTras.Count() != 0)
-            {
-                for (int i = 0; i < ListaTras.Count(); i++)
-                {
-                    //wypluwa kolejne trasy na ekran
-                }
-            }
-            else
-            {
-                //wypluwa komunikat o braku tras
-            }
-
-        }
-        public Boolean DodajKlienta(Klient nowy)//nie wiem jeszcze jak rozwiazac dodawanie osoby lub posrednika. albo bedzie wybor opcji np przez parametr albo bedzie tworzony oddzielnie a potem dodany na liste
-        {
-            if (ListaKlientow.Count() != 0)
-            {
-                foreach (Klient Obiekt in ListaLotnisk)
-                {
-                    if (Klient.GetIDKlienta() == id)
-                        return false;
-                }
-            }
-
-            ListaLotnisk.Add(nowy);
-            return true;
-        }
-        public Boolean UsunKlienta(string id)
-        {
-            if (ListaKlientow.Count() != 0)
-            {
-                for (int i = 0; i < ListaKlientow.Count(); i++)
-                {
-                    if (ListaKlientow[i].GetIDKlienta() == id)
-                    {
-                        ListaLotnisk.Remove(i);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public void PrzegladKlientow()
-        {
-            if (ListaKlientow.Count() != 0)
-            {
-                for (int i = 0; i < ListaKlientow.Count(); i++)
-                {
-                    //wypluwa kolejne lotniska na ekran
-                }
-            }
-            else
-            {
-                //wypluwa komunikat o braku lotnisk
-            }
-
-        }
-        */
         public void ZapisDoPliku()//generalnie zastosujemy serializacje zeby zapisywac calosc jeszcze doczytac musze czy to tak zadziala na jednym pliku ew jak to zrobic przy odczycie
         {
             try
@@ -390,6 +290,10 @@ namespace WPFprojekt
                     bin.Serialize(strumien, ListaLotow);
                     bin.Serialize(strumien, ListaKlientow);
                     bin.Serialize(strumien, ListaTras);
+                    bin.Serialize(strumien,LNIDKlientow);
+                    bin.Serialize(strumien, LNIDLotow);
+                    bin.Serialize(strumien, ListaPlanowLotu);
+                    bin.Serialize(strumien, WirtualnaData);
                 }
             }
             catch (IOException)
@@ -409,6 +313,10 @@ namespace WPFprojekt
                 ListaLotow = (List<Lot>) bin.Deserialize(strumien);
                 ListaKlientow = (List<Klient>) bin.Deserialize(strumien);
                 ListaTras = (List<Trasa>) bin.Deserialize(strumien);
+                LNIDKlientow = (List<string>)bin.Deserialize(strumien);
+                LNIDLotow = (List<string>)bin.Deserialize(strumien);
+                ListaPlanowLotu = (List<PlanLotu>)bin.Deserialize(strumien);
+                WirtualnaData = (DateTime)bin.Deserialize(strumien);
 
             }
         }
