@@ -1,0 +1,74 @@
+﻿<Window x:Class="WPFprojekt.DodajTrase"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFprojekt"
+        mc:Ignorable="d"
+        Title="Dodaj Trase" Height="300" Width="300" WindowStartupLocation="CenterScreen" MinHeight="300" MinWidth="300" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <GroupBox Grid.Column="1" Grid.Row="1" Header="Trasa" Margin="10,5,10,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left"><Run Text="Lotnisko1:"/></TextBlock>
+                <ListView x:Name="lista_Lotnisko" Grid.Column="2" Grid.Row="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Nazwa"
+                            DisplayMemberBinding="{Binding IDLotniska}"/>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left"><Run Text="Lotnisko2:"/></TextBlock>
+                <ListView x:Name="lista_Lotnisko2" Grid.Column="2" Grid.Row="3">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Nazwa"
+                            DisplayMemberBinding="{Binding IDLotniska}"/>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajTrase_Click"></Button>
+            <Button x:Name="Anuluj" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Anuluj_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

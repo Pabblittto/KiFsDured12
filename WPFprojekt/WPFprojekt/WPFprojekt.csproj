@@ -54,11 +54,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DodajKlienta.xaml.cs">
+      <DependentUpon>DodajKlienta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DodajLotnisko.xaml.cs">
+      <DependentUpon>DodajLotnisko.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DodajTrase.xaml.cs">
+      <DependentUpon>DodajTrase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DodajTypSamolotu.xaml.cs">
+      <DependentUpon>DodajTypSamolotu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Rezerwacja.cs" />
     <Compile Include="Samolot.cs" />
     <Compile Include="Trasa.cs" />
     <Compile Include="TypSamolotu.cs" />
     <Compile Include="Wyjątek.cs" />
+    <Page Include="DodajKlienta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DodajLotnisko.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DodajTrase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DodajTypSamolotu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DodawanieKlientow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

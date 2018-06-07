@@ -22,8 +22,7 @@ namespace WPFprojekt
     public partial class MainWindow : Window
     {
         public Firma GlownaFirma = new Firma();
-        
-        
+
 
         public MainWindow()
         {
@@ -76,11 +75,33 @@ namespace WPFprojekt
             Okno.Content = new DodawanieKlientow(this);
         }
 
-
-     
+        private void Okno_DodajKlienta(object sender, RoutedEventArgs e)
+        {
+            DodajKlienta oknoKlient = new DodajKlienta();
+            oknoKlient.Owner = this;
+            oknoKlient.ShowDialog();
+            oknoKlient = null;
+        }
+        private void Okno_DodajLotnisko(object sender, RoutedEventArgs e)
+        {
+            DodajLotnisko oknoLotnisko = new DodajLotnisko();
+            oknoLotnisko.Owner = this;
+            oknoLotnisko.ShowDialog();
+            oknoLotnisko = null;
+        }
+        private void Okno_DodajTypSamolotu(object sender, RoutedEventArgs e)
+        {
+            DodajTypSamolotu oknoTypSamolotu = new DodajTypSamolotu();
+            oknoTypSamolotu.Owner = this;
+            oknoTypSamolotu.ShowDialog();
+            oknoTypSamolotu = null;
+        }
+        private void Okno_DodajTrase(object sender, RoutedEventArgs e)
+        {
+            DodajTrase oknoTrasa = new DodajTrase();
+            oknoTrasa.Owner = this;
+            oknoTrasa.ShowDialog();
+            oknoTrasa = null;
+        }
     }
-
-
-
-
 }

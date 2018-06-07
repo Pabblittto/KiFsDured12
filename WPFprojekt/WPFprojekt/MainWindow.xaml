@@ -5,22 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-        Title="Plibuda Lines Company" Height="550" Width="900">
-    <Window.BindingGroup>
-        <BindingGroup/>
-    </Window.BindingGroup>
+        Title="Plibuda Lines Company" Height="550" Width="900" WindowStartupLocation="CenterScreen" MinWidth="900" MinHeight="550">
+
     <Grid>
         <!-- główny grind!!!!!!!!! -->
         <StackPanel x:Name="Panel" Orientation="Horizontal"  Height="35" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Menu  Background="Gainsboro">
                 <MenuItem x:Name="DodajRozwijaj" Header="Dodaj" Background="Gainsboro" FontSize="16" Height="35"  >
-                    <MenuItem Header="Lotnisko" Click="Dodaj_Lotnisko"/>
-                    <MenuItem Header="Trasa"/>
+                    <MenuItem Header="Lotnisko" Click="Okno_DodajLotnisko"/>
+                    <MenuItem Header="Trasa" Click="Okno_DodajTrase"/>
                     <MenuItem Header="Lot jednorazowy"/>
                     <MenuItem Header="Lot cykliczny"/>
-                    <MenuItem Header="Klient" Click="Dodaj_Klienta"/>
+                    <MenuItem Header="Klient" Click="Okno_DodajKlienta"/>
                     <MenuItem Header="Samolot">
-                        <MenuItem Header="Typ"/>
+                        <MenuItem Header="Typ" Click="Okno_DodajTypSamolotu"/>
                         <MenuItem Header="Model"/>
                     </MenuItem>
                     <Separator/>
