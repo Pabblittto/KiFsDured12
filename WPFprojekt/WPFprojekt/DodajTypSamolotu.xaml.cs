@@ -15,17 +15,17 @@ using System.Windows.Shapes;
 namespace WPFprojekt
 {
     /// <summary>
-    /// Logika interakcji dla klasy DodajKlienta.xaml
+    /// Logika interakcji dla klasy DodajTypSamolotu.xaml
     /// </summary>
-    public partial class DodajKlienta : Window
+    public partial class DodajTypSamolotu : Window
     {
-        public DodajKlienta()
+        public DodajTypSamolotu()
         {
             InitializeComponent();
         }
-        private void DodajKlienta_Click(object sender, RoutedEventArgs e)
+        private void DodajTypSamolotu_Click(object sender, RoutedEventArgs e)
         {
-            // tu wywoła się funkcja dodania klienta
+            // tu wywoła się funkcja dodania typu samolotu
             this.DialogResult = true;
             this.Close();
         }

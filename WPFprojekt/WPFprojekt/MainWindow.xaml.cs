@@ -90,5 +90,12 @@ namespace WPFprojekt
             oknoLotnisko.ShowDialog();
             oknoLotnisko = null;
         }
+        private void Okno_DodajTypSamolotu(object sender, RoutedEventArgs e)
+        {
+            DodajTypSamolotu oknoTypSamolotu = new DodajTypSamolotu();
+            oknoTypSamolotu.Owner = this;
+            oknoTypSamolotu.ShowDialog();
+            oknoTypSamolotu = null;
+        }
     }
 }

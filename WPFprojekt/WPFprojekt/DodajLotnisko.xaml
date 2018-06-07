@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-        Title="Dodaj Lotnisko" Height="150" Width="300" WindowStartupLocation="CenterScreen" MinWidth="300" MinHeight="150">
+        Title="Dodaj Lotnisko" Height="140" Width="300" WindowStartupLocation="CenterScreen" MinWidth="300" MinHeight="140">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,7 +16,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -38,12 +38,13 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"><Run Text="Nazwa:"/></TextBlock>
-                <TextBox x:Name="NazwaTextBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150"></TextBox>
+                <TextBox x:Name="NazwaTextBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
 
             </Grid>
         </GroupBox>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,30,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajLotnisko_Click"></Button>
+            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajLotnisko_Click"></Button>
+            <Button x:Name="Anuluj" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Anuluj_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>

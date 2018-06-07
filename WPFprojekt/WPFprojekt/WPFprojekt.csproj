@@ -60,6 +60,9 @@
     <Compile Include="DodajLotnisko.xaml.cs">
       <DependentUpon>DodajLotnisko.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DodajTypSamolotu.xaml.cs">
+      <DependentUpon>DodajTypSamolotu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Rezerwacja.cs" />
     <Compile Include="Samolot.cs" />
     <Compile Include="Trasa.cs" />
@@ -70,6 +73,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DodajLotnisko.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DodajTypSamolotu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

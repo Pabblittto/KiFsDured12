@@ -25,7 +25,13 @@ namespace WPFprojekt
         }
         private void DodajLotnisko_Click(object sender, RoutedEventArgs e)
         {
+            // tu wywoła się funkcja dodania lotniska
             this.DialogResult = true;
+            this.Close();
+        }
+        private void Anuluj_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
             this.Close();
         }
     }
