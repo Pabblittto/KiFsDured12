@@ -24,7 +24,6 @@ namespace WPFprojekt
     {
         public List<Lotnisko> listaLotnisk = new List<Lotnisko>();
 
-
         public DodajTrase()
         {
             InitializeComponent();
@@ -39,7 +38,36 @@ namespace WPFprojekt
         {
             lista_Lotnisko.ItemsSource = listaLotnisk;
             lista_Lotnisko2.ItemsSource = listaLotnisk;
+            CollectionView Lista1 = (CollectionView)CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource);
+            CollectionView Lista2 = (CollectionView)CollectionViewSource.GetDefaultView(lista_Lotnisko2.ItemsSource);
+            Lista1.Filter = NameFilter;
+            Lista2.Filter = Name2Filter;
         }
+
+        private bool NameFilter(object item)
+        {
+            if (String.IsNullOrEmpty(Nazwa1TextBox.Text))
+                return true;
+            else
+                return ((item as Lotnisko).IDLotniska.IndexOf(Nazwa1TextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+        private bool Name2Filter(object item)
+        {
+            if (String.IsNullOrEmpty(Nazwa2TextBox.Text))
+                return true;
+            else
+                return ((item as Lotnisko).IDLotniska.IndexOf(Nazwa2TextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+        private void Nazwa1ZM(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource).Refresh();
+        }
+        private void Nazwa2ZM(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(lista_Lotnisko2.ItemsSource).Refresh();
+        }
+
+
 
         private void DodajTrase_Click(object sender, RoutedEventArgs e)
         {
