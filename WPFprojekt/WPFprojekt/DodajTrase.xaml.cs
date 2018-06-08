@@ -57,12 +57,13 @@ namespace WPFprojekt
                 return true;
             else
                 return ((item as Lotnisko).IDLotniska.IndexOf(Nazwa2TextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+
         }
-        private void Nazwa1ZM(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void Nazwa1Szukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource).Refresh();
         }
-        private void Nazwa2ZM(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void Nazwa2Szukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(lista_Lotnisko2.ItemsSource).Refresh();
         }
