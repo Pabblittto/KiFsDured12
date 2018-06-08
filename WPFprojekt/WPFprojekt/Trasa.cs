@@ -38,9 +38,6 @@ namespace WPFprojekt
             Odleglosc = Droga.Odleglosc;
         }
 
-
-
-
         public int GetOdleglosc()
         {
             return Odleglosc;

@@ -19,13 +19,13 @@ namespace WPFprojekt
 
         public String WirtualnaDataAktualzacja()
         {
-            if(Aktualnyczas.Second!=DateTime.Now.Second)
+            if (Aktualnyczas.Second != DateTime.Now.Second)
             {
                 Aktualnyczas = DateTime.Now;
-                WirtualnaData=WirtualnaData.Add(Dodawanyczas);
+                WirtualnaData = WirtualnaData.Add(Dodawanyczas);
 
             }
-             return WirtualnaData.ToString();
+            return WirtualnaData.ToString();
         }
 
 
@@ -51,7 +51,7 @@ namespace WPFprojekt
             {
                 if (ListaDanych.Count() != 0)
                 {         
-                    string NumerekBezformatu = ListaDanych[ListaDanych.Count() - 1].GetIDWlasne();// pobiera ID lotu który jest naj wcześniej - numerek jest ten w formacie 5 znaków jeżeli liczba nie zapełnia wszystkich 5 znaków to sa dodawane zera na początku       
+                    string NumerekBezformatu = ListaDanych[ListaDanych.Count() - 1].IDObiektu;// pobiera ID lotu który jest naj wcześniej - numerek jest ten w formacie 5 znaków jeżeli liczba nie zapełnia wszystkich 5 znaków to sa dodawane zera na początku       
                     
                     NumerekBezformatu = NumerekBezformatu.TrimStart('0');// usuwa zera z przodu
                     uint tmp = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + NumerekBezformatu);// zamienia stringa na uinta 
@@ -88,14 +88,145 @@ namespace WPFprojekt
 
         }
 
-        public void UsunPlanLotu(PlanLotu Obiekt)
+         public void UsunPlanLotu(PlanLotu Obiekt)
         {
             //funkcja co zwalnia pole samolotu czycykliczny z true/ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
+        // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void PrzyciskAnulujRezerwacje(RezerwcjaBilet Dowywalenia)
+        {
+            if (Dowywalenia != null)
+            {
+                Dowywalenia.Polaczenie.AnulujRezerwacje(Dowywalenia.Pasazer, Dowywalenia);
+            }
+            else
+                throw new Wyjatek("Zaznacz konkretny obiekt!");
+        }
 
 
 
+            /// <summary>
+            /// Funkcja wywala dwa wyjątki: Wypełnienie wszystkich pól i brak miejsc w samolocie
+            /// </summary>
+        public void PrzyciskRezerwuj(Lot JakiLot, Klient JakiKlient,Boolean Czywykupil,Boolean CzyVIP)
+        {
+            if (JakiLot!=null && JakiLot!=null)
+            {
+                JakiLot.RezerwujKupBilet(JakiKlient, CzyVIP, Czywykupil, this.WirtualnaData);
+            }
+            else
+                throw new Wyjatek("Wypełnij wszystkie pola!!");
+        }
+
+        public void PrzyciskDodajKlientaPosrednika(string nazwa)
+        {
+            Posrednik tmp = new Posrednik(nazwa, PrzydzielanieID(ListaKlientow, LNIDKlientow));
+            DodawanieDoListy(ListaKlientow, tmp);
+        }
+
+        /// <summary>
+            /// Funkcja nie zwraca żdnych wyjatków
+            /// </summary>
+        public void PrzyciskDodajKlientaOsobe(string imie, string nazwisko)
+         {
+            Osoba tmp = new Osoba(imie, nazwisko, PrzydzielanieID(ListaKlientow, LNIDKlientow));
+            DodawanieDoListy(ListaKlientow,tmp);
+         }
+
+        /// <summary>
+        /// Index to numer TypuSamolotu na liśćie - to ma określić do jakiego typu ma dodać Samoloty
+        /// </summary>
+        public void PrzyciskDodajModelSamolotu(int index, int ilosc)
+        {
+            for(int i=1;i<=ilosc; i++)
+                {
+                ListaTypow[index].DodajSamolot(PrzydzielanieID(ListaTypow[index].GetListaSamolotow(), ListaTypow[index].GetLNIDSamolotow()));
+                }
+        }
+
+        /// <summary>
+        ///  Funkcja wywala 
+        /// </summary>
+        public void PrzyciskDodajLot(Trasa Droga, DateTime DataWylotu,Boolean CzyMawracac,TypSamolotu _WybranytypSamolotu,Samolot WybranaMaszyna)
+        {
+            if (Droga != null && DataWylotu != null && _WybranytypSamolotu != null && WybranaMaszyna!=null)
+            {
+                if (_WybranytypSamolotu.GetZasieg() >= Droga.Odleglosc)
+                {
+                    Lot tmp = new Lot(PrzydzielanieID(ListaLotow, LNIDLotow), Droga, DataWylotu, CzyMawracac, WybranaMaszyna, _WybranytypSamolotu);
+                    if(CzyMawracac==true)
+                    {
+                        Lot tmp2 = new Lot(PrzydzielanieID(ListaLotow,LNIDLotow),Droga,DataWylotu.Add(tmp.CzasLotu.Add(new TimeSpan(3,0,0))),CzyMawracac,WybranaMaszyna,_WybranytypSamolotu);
+                        DodawanieDoListy(ListaLotow, tmp2);
+                    }
+                    DodawanieDoListy(ListaLotow, tmp);
+                }
+                else
+                    throw new Wyjatek("Samolot nie doleci do celu, zmień jego rodzaj!");
+            }
+            else
+                throw new Wyjatek("Wypełnij wszystkie pola!");
+        }   
+
+        /// <summary>
+        /// Funkcja do dodawanie PlanuLotu, zwraca 3 wyjątki: albo nie wszystkie pola pełne , albo że zdąży wrócić przed nsateonym lotem, że nie
+        /// dolec ponieważ typ samolotu ma za mały sasięg , lub też że nie zdąży wrócić przed następnym lotem
+        /// </summary>
+        public void PrzyciskDodajPlanLotu(DateTime _PierwszyLot, TimeSpan _CoIlelata,Trasa Kierunek,TypSamolotu _RodzajSamolotu,TimeSpan NaJakiPrzedzialCzasu,Samolot _PojazdPermamentny)
+        {
+            if (_PierwszyLot != null && _CoIlelata != null && Kierunek != null && _RodzajSamolotu != null && NaJakiPrzedzialCzasu != null && _PojazdPermamentny != null)
+            {
+                if (PlanLotu.CzyDoleci(_RodzajSamolotu,Kierunek) == true)
+                {
+                    if (PlanLotu.CzyzdarzyWrocic(_RodzajSamolotu, Kierunek, _CoIlelata) == true)
+                    {
+                        ListaPlanowLotu.Add(new PlanLotu(_PierwszyLot, _CoIlelata, Kierunek, _RodzajSamolotu, NaJakiPrzedzialCzasu, _PojazdPermamentny));
+                    }
+                    else
+                        throw new Wyjatek("Samolot nie zdąży wrócić do Lotniska bazoewgo");
+                }
+                else
+                    throw new Wyjatek("Samolot ma za mały zasięg");
+            }
+            else
+               throw new Wyjatek("Wypełnij wszystkie pola!");
+        }
+
+        /// <summary>
+        /// Wywala wyjatek jeżeli wybierzesz takie same lotniska
+        /// </summary>
+        public void PrzyciskDodajTrase(Lotnisko Lot1,Lotnisko Lot2,uint odl)
+        {
+            if (Firma.CzyLotniskaRozne(Lot1, Lot2) == true && odl!=0)
+            {
+                this.DodajTrase(Lot1, Lot2,(int)odl);
+            }
+            else
+                throw new Wyjatek("Wybrałeś takie same lotniska!");
+        }
+
+        /// <summary>
+        /// Funkcja wywala 2 wyjatki- jak nie pwrowadzi sie nazwy lotniska lub jak Istnieje juz takie lotnisko na liście 
+        /// </summary>
+        /// <param name="Nazwa"></param>
+        public void PrzyciskDodajLotnisko(string Nazwa)
+        {
+            if (Nazwa != "" || CZyLotniskoIstnieje(Nazwa)==false)
+            {
+                foreach (Lotnisko Obiekt in ListaLotnisk)
+                {
+                    if (Obiekt.IDLotniska.ToLower() == Nazwa.ToLower())
+                        throw new Wyjatek("Istnieje już takie lotnisko");
+                }
+                    this.ListaLotnisk.Add(new Lotnisko(Nazwa));
+            }
+            else
+                throw new Wyjatek("Wprowadź inną nazwe lotniska");
+        }
+
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Usuwa Lot całkowicie- wywala z Listy lotów odbytych po 2 godzinach od landowania, funkcja automatyczna
         /// </summary>
@@ -111,7 +242,7 @@ namespace WPFprojekt
 
         }
         /// <summary>
-        /// Funkcja Przelatuje przez Liste lotów i tworzy nowy lot jeżeli ten leci w drują stonę wsadza odbyte loty do listy odbytych, automatycznie
+        /// Funkcja Przelatuje przez Liste lotów i tworzy nowy lot jeżeli ten leci w drują stonę, wsadza odbyte loty do listy odbytych, automatycznie
         /// </summary>
         public void SprawdzanieStanuLotow()
         {
@@ -119,18 +250,21 @@ namespace WPFprojekt
             {
                 if(Obiekt.CzyWyladowal(Aktualnyczas)==true)
                 {
-                    if(Obiekt.CzyMaWracac==true)
-                    {
-                        Lot tmp = new Lot(Obiekt, PrzydzielanieID(ListaLotow, LNIDLotow),new TimeSpan(3,0,0));
-                        DodawanieDoListy(ListaLotow, tmp);
-                    }
                     ListaOdbytychLotow.Add(Obiekt);
-                    ZwolnijSamolotZLOtu(Obiekt);
+                    ZerujPolaSamolotuWLocie(Obiekt);
                     UsunZListy(ListaLotow, LNIDLotow,Obiekt);
                 }
             }
         }
 
+
+        public void PrzedawnianieRezerwacji()
+        {
+            foreach (Lot Obiekt in ListaLotow)
+            {
+                Obiekt.PrzedawniajRezerwacje(WirtualnaData);
+            }
+        }
 
 
 
@@ -143,8 +277,8 @@ namespace WPFprojekt
         /// <returns></returns>
         public Boolean PorownanieID<Typ>(Typ Objekt1, Typ Objekt2) where Typ :KlasaID
         {
-            uint temp1= (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + Objekt1.GetIDWlasne());
-            uint temp2 = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + Objekt2.GetIDWlasne());
+            uint temp1= (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + Objekt1.IDObiektu);
+            uint temp2 = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + Objekt2.IDObiektu);
             if (temp1 > temp2)
                 return true;
             if (temp1 < temp2)
@@ -173,13 +307,16 @@ namespace WPFprojekt
         /// <param name="UsuwanyObiekt"></param>
         public void UsunZListy<Typ>(List<Typ> ListaDanych,List<string> LNIDDanych, Typ UsuwanyObiekt) where Typ: KlasaID
         {
-            LNIDDanych.Add(UsuwanyObiekt.GetIDWlasne());
+            LNIDDanych.Add(UsuwanyObiekt.IDObiektu);
             ListaDanych.Remove(UsuwanyObiekt);
         }// trzeba to przetestować
 
-        public void ZwolnijSamolotZLOtu(Lot Obiekt)
+        public void ZerujPolaSamolotuWLocie(Lot Obiekt)
         {
-            Obiekt.GetSamolot().CzyDostepny = true;
+            Obiekt.Maszyna.CoObsluguje = null;
+            Obiekt.Maszyna.Cykliczny = false;
+            Obiekt.Maszyna.CzyDostepny = true;
+            Obiekt.Maszyna.PlanLotuPrzypisany = null;
         }
 
         /// <summary>
@@ -187,7 +324,7 @@ namespace WPFprojekt
         /// </summary>
         /// <param name="NazwaIDLotniska"></param>
         /// <returns></returns>
-        public Boolean CZyLotniskoIstnieje(string NazwaIDLotniska)
+        public  Boolean CZyLotniskoIstnieje(string NazwaIDLotniska)
         {
             if (this.ListaLotnisk.Count() != 0)
             {
@@ -205,10 +342,7 @@ namespace WPFprojekt
         /// Funkcja do dodawania lotnisk do lity
         /// </summary>
         /// <param name="Dodawane"></param>
-        public void DodajLotnisko(Lotnisko Dodawane)
-        {
-            this.ListaLotnisk.Add(Dodawane);
-        }
+
          public void UsunLotniskoZOdpowiednimID(int NRid)
         {
             this.ListaLotnisk.Remove(ListaLotnisk[NRid]);
@@ -219,7 +353,7 @@ namespace WPFprojekt
         /// </summary>
         /// <param name="Lotnis1"></param>
         /// <param name="Lotnis2"></param>
-        public Boolean CzyLotniskaRozne(Lotnisko Lotnis1,Lotnisko Lotnis2 )
+        public static Boolean CzyLotniskaRozne(Lotnisko Lotnis1,Lotnisko Lotnis2 )
         {
             if (Lotnis1 == Lotnis2)
                 return true;

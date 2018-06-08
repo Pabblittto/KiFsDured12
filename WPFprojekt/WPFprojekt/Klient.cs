@@ -47,7 +47,7 @@ namespace WPFprojekt
         /// <summary>
         /// Funkcja do usuwania biletów, zwraca fałsz jeżeli nie ma danego biletu na liście 
         /// zwraca prawde jeżeli usuwany bilet był na liście i usuną dany bilet
-        /// </summary>
+        /// /// </summary>
         /// <param name="UsuwanyBilet"></param>
         /// <returns></returns>
         public Boolean UsunBiletRezerwacje(RezerwcjaBilet UsuwanyBilet)
@@ -58,6 +58,7 @@ namespace WPFprojekt
                 {
                     if (Obiekt == UsuwanyBilet)
                     {
+
                         ListaBiletowRezerwacji.Remove(UsuwanyBilet);
                         return true;
                     }             

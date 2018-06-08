@@ -29,6 +29,7 @@ namespace WPFprojekt
             PierwszyLot = PierwszyLot.Subtract(CoIleLata);// te odjęcie czasu wiąże się z sposobem dodawania nowych lotów
             Pojazd = _Pojazd;
             Pojazd.Cykliczny = true;
+            
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace WPFprojekt
         /// Funkcja liczy ile samolot leci w jedną stronę
         /// </summary>
         /// <returns></returns>
-        public TimeSpan ILeleciWjednaStrone(TypSamolotu TypSamolotuKtorychcemydodac,Trasa TrasaCochcemydodac)
+        public static TimeSpan ILeleciWjednaStrone(TypSamolotu TypSamolotuKtorychcemydodac,Trasa TrasaCochcemydodac)
         {
             TimeSpan CzasLotu;
             double czas = TrasaCochcemydodac.GetOdleglosc() / TypSamolotuKtorychcemydodac.GetPredkosc();// czas wychodzi w godz z minutamie po przecinku
@@ -69,11 +70,11 @@ namespace WPFprojekt
         /// Zwraca true jeżeli samolot zdąrzy rócić przed nastepnym lotem, wywala wyjatek jeżeli nie ma wystarczająco dużo pul wypełnionych
         /// więc wystarczy ładnie obsłurzyć
         /// </summary>
-        public Boolean CzyzdarzyWrocic(TypSamolotu TypSamolotuKtorychcemyDodac,Trasa TrasaCochemydodac, TimeSpan CoIleMaLatac)// ta funkcja jest do poprawy musi być statyczna
+        public static Boolean CzyzdarzyWrocic(TypSamolotu TypSamolotuKtorychcemyDodac,Trasa TrasaCochemydodac, TimeSpan CoIleMaLatac)// ta funkcja jest do poprawy musi być statyczna
         {
             if (TypSamolotuKtorychcemyDodac != null && TrasaCochemydodac != null && CoIleMaLatac != null)
             {
-                TimeSpan CalkowityCzas = ILeleciWjednaStrone(TypSamolotuKtorychcemyDodac, TrasaCochemydodac);
+                TimeSpan CalkowityCzas = PlanLotu.ILeleciWjednaStrone(TypSamolotuKtorychcemyDodac, TrasaCochemydodac);
                 CalkowityCzas= CalkowityCzas.Add(CalkowityCzas);
                 CalkowityCzas = CalkowityCzas.Add(new TimeSpan(3,0,0));
                 if (CalkowityCzas.CompareTo(CoIleMaLatac) >= 0)
@@ -98,7 +99,8 @@ namespace WPFprojekt
             while(CzyTrzebaStworzyc(AktualnaData))
             {
                 CZasBazowy = CZasBazowy.Add(CoIleLata);
-                ListaLotowKtoraTrzebaDodac.Add(new Lot("0", Polaczenie, CZasBazowy.Year, CZasBazowy.Month, CZasBazowy.Day, CZasBazowy.Hour, CZasBazowy.Minute, true, true));// ID Lotu musi zostac zmienione przez funkcje w Firmie
+                ListaLotowKtoraTrzebaDodac.Add(new Lot("0", Polaczenie, CZasBazowy, RodzajSamolotu,Pojazd,this));// ID Lotu musi zostac zmienione przez funkcje w Firmie
+                ListaLotowKtoraTrzebaDodac.Add(new Lot("0", new Trasa(Polaczenie), CZasBazowy.Add(PlanLotu.ILeleciWjednaStrone(RodzajSamolotu,Polaczenie).Add(new TimeSpan(3,0,0))),RodzajSamolotu,Pojazd,this));
             }
             return ListaLotowKtoraTrzebaDodac;
         }

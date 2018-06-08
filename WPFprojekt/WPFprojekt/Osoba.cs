@@ -9,22 +9,13 @@ namespace WPFprojekt
     [Serializable]
     public class Osoba : Klient
     {
-        private string Imie;
-        private string Nazwisko;
+        public  string Imie { get; set; }
+        public string Nazwisko { get; set; }
         public Osoba(string imie,string nazwisko,string ID) :base(ID)
         {
             
             this.Imie = imie;
             this.Nazwisko = nazwisko;
         }
-        public string GetImie()
-        {
-            return Imie;
-        }
-        public string GetNazwisko()
-        {
-            return Nazwisko;
-        }
-
     }
 }

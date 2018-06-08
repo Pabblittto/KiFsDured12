@@ -9,12 +9,12 @@ namespace WPFprojekt
     [Serializable]
      public class TypSamolotu
     {
-        private string NazwaModelu;
+        public string NazwaModelu { get; set; }
 
-        private int Zasieg;// podawana w km
-        private int Predkosc;// prędkośc podawana w km/h
-        private int IloscMiejsc;
-        private int IloscMiejscVIP;
+        public int Zasieg { get; set; }// podawana w km
+        public int Predkosc { get; set; }// prędkośc podawana w km/h
+        public int IloscMiejsc { get; set; }
+        public int IloscMiejscVIP { get; set; }
 
         private List<Samolot> ListaSamolotow;
         private List<string> LNIDSamolotow;
@@ -77,7 +77,7 @@ namespace WPFprojekt
             {
                 foreach (Samolot Obiekt in ListaSamolotow)
                 {
-                    if (Obiekt.GetIDWlasne() == IDSamolotu)
+                    if (Obiekt.IDObiektu == IDSamolotu)
                         return false;
                 }
             }
@@ -98,7 +98,7 @@ namespace WPFprojekt
             {
                 for (int i = 0; i < ListaSamolotow.Count(); i++)
                 {
-                    if (ListaSamolotow[i].GetIDWlasne() == IDSamolotu)
+                    if (ListaSamolotow[i].IDObiektu == IDSamolotu)
                     {
                         ListaSamolotow.Remove(ListaSamolotow[i]);
 
@@ -120,7 +120,7 @@ namespace WPFprojekt
         {
             foreach (Samolot Obiekt in ListaSamolotow)
             {
-                if (Obiekt.GetIDWlasne() == IDszukanegoSamolotu)
+                if (Obiekt.IDObiektu == IDszukanegoSamolotu)
                     return Obiekt;
             }
             throw new Wyjatek("Nie ma takiego Samolotu o podanym ID na liście!! ");// niech użytkownik wpisze te ID jeszcze raz, jeżeli ma możliwość wgl

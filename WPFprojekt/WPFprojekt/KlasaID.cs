@@ -9,12 +9,7 @@ namespace WPFprojekt
     [Serializable]
     public abstract class KlasaID
     {
-       protected string IDObiektu;
-
-        public string GetIDWlasne()
-        {
-            return IDObiektu;
-        }
+       public string IDObiektu { get; set; }
 
         public void SetID(string a)
         {

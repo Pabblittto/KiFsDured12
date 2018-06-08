@@ -50,6 +50,8 @@ namespace WPFprojekt
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            GlownaFirma.PrzedawnianieRezerwacji();
+            GlownaFirma.WyslijWKosmos();
             GlownaFirma.SprawdzanieStanuLotow();
             GlownaFirma.SprawdzenieStanuOdbytychLotow();
             GlownaFirma.BlokujRezerwacje();

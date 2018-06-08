@@ -12,20 +12,21 @@ namespace WPFprojekt
     /// </summary>
     public class RezerwcjaBilet
     {
-        private Klient Pasazer;
+        public Klient Pasazer;
+        public Lot Polaczenie;
 
-        private string NrRezerwacjiBiletu;
-        private uint NrMiesca;
-        private int CenaBiletu;
-        private Boolean BiletVIP;
-        private Boolean CzyKupionyBilet;
+        public string NrRezerwacjiBiletu { get; set; }
+        public uint NrMiesca { get; set; }
+        public int CenaBiletu { get; set; }
+        public Boolean BiletVIP { get; set; }
+        public Boolean CzyKupionyBilet { get; set; }
 
-        private DateTime DataWygasniecia;
+        public DateTime DataWygasniecia { get; set; }
 
         // ostatni element w konstruktorze decyduje obiket stajie sie od razu biletem
-        public RezerwcjaBilet(string NrRezer,int _Cena,Boolean Vip, Klient KtoRezerw,DateTime Datastworzenia,Boolean _CzyKupionyBilet )
+        public RezerwcjaBilet(string NrRezer,int _Cena,Boolean Vip, Klient KtoRezerw,DateTime Datastworzenia,Boolean _CzyKupionyBilet,Lot _Polaczenie )
         {
-
+            Polaczenie = _Polaczenie;
             Pasazer = KtoRezerw;
             NrRezerwacjiBiletu = NrRezer;
             NrMiesca = (uint)new System.ComponentModel.UInt32Converter().ConvertFromString("0x" + NrRezer.Split('-')[1]);
@@ -46,13 +47,6 @@ namespace WPFprojekt
             return BiletVIP;
         }
 
-        /// <summary>
-        /// Sprawia że rezerwacja staje się biletem i data wygaśnięcia już nie obowiązuje
-        /// </summary>
-        public void WykupRezerwacje()
-        {
-            CzyKupionyBilet = true;
-        }
 
         /// <summary>
         /// Może się przyda ta funkcja , nie wiem , zwraca czy dany obiekt jest rezerwacją czy biletem
@@ -81,12 +75,6 @@ namespace WPFprojekt
             else
                return false;
         }
-
-        public uint GetNRMiejsca()
-        {
-            return NrMiesca;
-        }
-
 
     }
 }

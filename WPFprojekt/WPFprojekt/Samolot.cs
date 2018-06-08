@@ -11,9 +11,10 @@ namespace WPFprojekt
     {
        // private string IDSamolotu;
 
-        public Boolean CzyDostepny { get; set; }
+        public Boolean CzyDostepny { get; set; }// zmienna dla pojedynczych lotów
         public Lot CoObsluguje { get; set; }
-        public Boolean Cykliczny { get; set; }// zmienna potrzebna dla lotów cyklicznych 
+        public PlanLotu PlanLotuPrzypisany { get; set; }
+        public Boolean Cykliczny { get; set; }// zmienna działa tak jak czy dostepny , ale Dla lotów cykliczbych
 
         public Samolot(String ID)
         {
@@ -21,6 +22,12 @@ namespace WPFprojekt
             CzyDostepny = true;
         }
 
+        public Samolot()
+        {
+            CzyDostepny = true;
+            CoObsluguje = null;
+            PlanLotuPrzypisany = null;
+        }
         /// <summary>
         /// Funkcja prosta i może sie przydać zarówno do automatycznego wysyłania samolotów w powietrze jak 
         /// i do sprowadzania samolotów na ziemie, zmienia stan CzyDsotepny na przeciwny, ewentualnie wywalić
