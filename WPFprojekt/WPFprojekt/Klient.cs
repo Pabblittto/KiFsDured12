@@ -37,7 +37,6 @@ namespace WPFprojekt
                 {
                     if (Obiekt ==DodawanyBilet)
                         return false;
-
                 }
             }
             ListaBiletowRezerwacji.Add(DodawanyBilet);

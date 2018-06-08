@@ -13,6 +13,7 @@ namespace WPFprojekt
 
         public Boolean CzyDostepny { get; set; }// zmienna dla pojedynczych lotów
         public Lot CoObsluguje { get; set; }
+        public Lot Coobsluguje2;// zmienna dla lotów które wracają i muszą trzymać lot powrotny
         public PlanLotu PlanLotuPrzypisany { get; set; }
         public Boolean Cykliczny { get; set; }// zmienna działa tak jak czy dostepny , ale Dla lotów cykliczbych
 
@@ -26,6 +27,7 @@ namespace WPFprojekt
         {
             CzyDostepny = true;
             CoObsluguje = null;
+            Coobsluguje2 = null;
             PlanLotuPrzypisany = null;
         }
         /// <summary>
@@ -37,6 +39,26 @@ namespace WPFprojekt
             CzyDostepny = !CzyDostepny;
         }
 
+        public void Zeruj()
+        {
+            CoObsluguje = null;
+            Coobsluguje2 = null;
+            CzyDostepny = true;
+            Cykliczny = false;
+        }
+
+        public Boolean CzyMaNastepnylot()
+        {
+            if (Coobsluguje2 != null)
+                return true;
+            else
+                return false;
+        }
+        public void PrzepiszLoty()
+        {
+            CoObsluguje = Coobsluguje2;
+            Coobsluguje2 = null;
+        }
 
     }
 }

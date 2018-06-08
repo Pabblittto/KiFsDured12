@@ -46,15 +46,21 @@ namespace WPFprojekt
             Maszyna.CzyDostepny = false;
             CzasLotu = PlanLotu.ILeleciWjednaStrone(RodzajSamolotu, _Droga);
             DataLadowania= this.DataLądowaniaDateTime();
-        }
 
+            if(CzyMaWracac==true && Maszyna.CoObsluguje!=null)
+            {
+                Maszyna.Coobsluguje2 = this;
+            }
+            else
+            Maszyna.CoObsluguje = this;
+        }
         /// <summary>
         /// Konstruktor dla lotów cyklicznych
         /// </summary>
         public Lot(string ID, Trasa Droga, DateTime Datawylotu,TypSamolotu TypPrzypisanyDoPlanu, Samolot Maszyna,PlanLotu JakiPlan):this(ID,Droga,Datawylotu,true, Maszyna,TypPrzypisanyDoPlanu)
         {
             Maszyna.Cykliczny = true;
-            Maszyna.CoObsluguje = this;
+            Maszyna.CoObsluguje = null;
             Maszyna.PlanLotuPrzypisany = JakiPlan;
 
         }

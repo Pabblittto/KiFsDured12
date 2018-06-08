@@ -88,12 +88,30 @@ namespace WPFprojekt
 
         }
 
-         public void UsunPlanLotu(PlanLotu Obiekt)
-        {
-            //funkcja co zwalnia pole samolotu czycykliczny z true/ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        }
 
         // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void PrzyciskUsunSamolot(Samolot Wskazany, TypSamolotu JakiTyp)
+        {
+            if (Wskazany != null && JakiTyp != null)
+            {
+                if (Wskazany.CzyDostepny == true && Wskazany.Cykliczny == false)
+                {
+                    JakiTyp.GetListaSamolotow().Remove(Wskazany);
+                }
+                else throw new Wyjatek("Samolot obsługuje aktualnie jakis lot");
+            }
+            else throw new Wyjatek("Wybierz dwa obiekty");
+        }
+
+         public void PrzyciskUsunTypSamolotu(TypSamolotu Wskazany)
+        {
+            if (Wskazany.GetListaSamolotow().Count() == 0)
+            {
+                ListaTypow.Remove(Wskazany);
+            }
+            else throw new Wyjatek("Istnieją jeszcze samoloty tego typu, najpierw je usun");
+        }
 
         public void PrzyciskAnulujRezerwacje(RezerwcjaBilet Dowywalenia)
         {
@@ -105,16 +123,67 @@ namespace WPFprojekt
                 throw new Wyjatek("Zaznacz konkretny obiekt!");
         }
 
+        public void PrzyciskUsunKlienta(Klient Wskazany)
+        {
+            if (Wskazany != null)
+            {
+                UsunKlienta(Wskazany);
+            }
+            else
+                throw new Wyjatek("Musisz wybrać klienta");
+        }
+
+        public void PrzyciskUsunPlanLotu(PlanLotu Wskazany)
+        {
+            if (Wskazany != null)
+            {
+                Wskazany.Pojazd.Zeruj();
+                ListaPlanowLotu.Remove(Wskazany);
+            }
+            else throw new Wyjatek("Wybierz Plan Lotu do usunięcia");
+        }
+         
+        public void PrzyciskUsunLot(Lot WskazanyLot)
+        {
+            if (WskazanyLot != null)
+            {
+                if (WskazanyLot.Maszyna.CoObsluguje == WskazanyLot  )
+                {
+                    if (WskazanyLot.Maszyna.CzyMaNastepnylot() == true)
+                    {
+                        WskazanyLot.Maszyna.PrzepiszLoty();
+                    }
+                    else WskazanyLot.Maszyna.Zeruj();
+                }
+                else WskazanyLot.Maszyna.Coobsluguje2 = null;
+
+               UsunZListy(ListaLotow, LNIDLotow, WskazanyLot);
+            }
+            else throw new Wyjatek("Wybierz Lot z listy");
+        }
+
+        public void PrzyciskUsunLotnisko()
+        {
+
+        }
 
 
-            /// <summary>
+        // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
             /// Funkcja wywala dwa wyjątki: Wypełnienie wszystkich pól i brak miejsc w samolocie
             /// </summary>
         public void PrzyciskRezerwuj(Lot JakiLot, Klient JakiKlient,Boolean Czywykupil,Boolean CzyVIP)
         {
-            if (JakiLot!=null && JakiLot!=null)
+            if (JakiLot!=null && JakiKlient!=null)
             {
-                JakiLot.RezerwujKupBilet(JakiKlient, CzyVIP, Czywykupil, this.WirtualnaData);
+                if (JakiLot.CzyzablokowaneBookowanie == false)
+                {
+                    JakiLot.RezerwujKupBilet(JakiKlient, CzyVIP, Czywykupil, this.WirtualnaData);
+                }
+                else
+                    throw new Wyjatek("Do Odlotu zostało mniej niż 1 godz, nie można rezerwować biletów");
+
             }
             else
                 throw new Wyjatek("Wypełnij wszystkie pola!!");
@@ -226,6 +295,15 @@ namespace WPFprojekt
                 throw new Wyjatek("Wprowadź inną nazwe lotniska");
         }
 
+        public void PrzyciskDodajTypSamolotow(string Nazwa,int Zasieg, int Predkosc,int Iloscmiejsc, int IloscMiejscVIP)
+        {
+            if (Nazwa != "" && Zasieg > 0 && Predkosc > 0 && Iloscmiejsc > 0 && IloscMiejscVIP > 0)
+            {
+                ListaTypow.Add(new TypSamolotu(Nazwa, Zasieg, Predkosc, Iloscmiejsc, IloscMiejscVIP));
+            }
+            else throw new Wyjatek("Błąd wprowadzonych danych!!Sprawdz je");
+        }
+
         // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Usuwa Lot całkowicie- wywala z Listy lotów odbytych po 2 godzinach od landowania, funkcja automatyczna
@@ -251,7 +329,8 @@ namespace WPFprojekt
                 if(Obiekt.CzyWyladowal(Aktualnyczas)==true)
                 {
                     ListaOdbytychLotow.Add(Obiekt);
-                    ZerujPolaSamolotuWLocie(Obiekt);
+                    if (Obiekt.Maszyna.Cykliczny == false && Obiekt.Maszyna.Coobsluguje2==null) Obiekt.Maszyna.Zeruj();
+                    if (Obiekt.Maszyna.Cykliczny == false && Obiekt.Maszyna.CzyMaNastepnylot() == true) Obiekt.Maszyna.PrzepiszLoty();
                     UsunZListy(ListaLotow, LNIDLotow,Obiekt);
                 }
             }
@@ -311,13 +390,6 @@ namespace WPFprojekt
             ListaDanych.Remove(UsuwanyObiekt);
         }// trzeba to przetestować
 
-        public void ZerujPolaSamolotuWLocie(Lot Obiekt)
-        {
-            Obiekt.Maszyna.CoObsluguje = null;
-            Obiekt.Maszyna.Cykliczny = false;
-            Obiekt.Maszyna.CzyDostepny = true;
-            Obiekt.Maszyna.PlanLotuPrzypisany = null;
-        }
 
         /// <summary>
         /// Funkcja zwraca true jeżeli Istnieje dane lotnisko z NazwaIDLotniska na liście
@@ -393,6 +465,15 @@ namespace WPFprojekt
             Trasa tmp2 = new Trasa(tmp1);
             ListaTras.Add(tmp1);
             ListaTras.Add(tmp2);
+        }
+
+        private void UsunKlienta(Klient Ktokolwiek)
+        {
+            foreach (RezerwcjaBilet Bilecik in Ktokolwiek.GetListaBiletowRezerwacji())
+            {
+                Bilecik.Polaczenie.AnulujRezerwacje(Ktokolwiek, Bilecik);
+            }
+            UsunZListy(ListaKlientow, LNIDKlientow, Ktokolwiek);
         }
 
 
