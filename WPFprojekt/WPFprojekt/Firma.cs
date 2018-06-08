@@ -31,7 +31,7 @@ namespace WPFprojekt
 
         public Firma()
         {
-            WirtualnaData = new DateTime(2012,8,12,12,8,0);//tą date trzeba wywalić tyz po piewrszych zapisach , odczytach , żeby była stała
+           // WirtualnaData = new DateTime(2018,8,12,12,8,0);//tą date trzeba wywalić tyz po piewrszych zapisach , odczytach , żeby była stała
             Aktualnyczas = DateTime.Now;
         }
         /// <summary>
@@ -319,7 +319,7 @@ namespace WPFprojekt
                 ListaPlanowLotu = (List<PlanLotu>)bin.Deserialize(strumien);
                 WirtualnaData = (DateTime)bin.Deserialize(strumien);
                 ListaOdbytychLotow = (List<Lot>)bin.Deserialize(strumien);
-            }
+           }
         }
  
     }

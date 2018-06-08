@@ -91,10 +91,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DodawanieLotnisk.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Glowny.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,9 +109,6 @@
     </Compile>
     <Compile Include="DodawanieKlientow.xaml.cs">
       <DependentUpon>DodawanieKlientow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DodawanieLotnisk.xaml.cs">
-      <DependentUpon>DodawanieLotnisk.xaml</DependentUpon>
     </Compile>
     <Compile Include="Firma.cs" />
     <Compile Include="Glowny.xaml.cs">

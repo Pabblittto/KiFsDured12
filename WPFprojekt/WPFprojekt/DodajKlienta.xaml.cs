@@ -22,6 +22,7 @@ namespace WPFprojekt
         public DodajKlienta()
         {
             InitializeComponent();
+            
         }
         private void DodajKlienta_Click(object sender, RoutedEventArgs e)
         {

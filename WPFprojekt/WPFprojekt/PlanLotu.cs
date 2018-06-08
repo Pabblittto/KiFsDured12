@@ -8,6 +8,8 @@ namespace WPFprojekt
 {/// <summary>
 /// Klasa- przepis na lot cykliczny
 /// </summary>
+/// 
+        [Serializable]
     public class PlanLotu
     {
         private DateTime CZasBazowy;// Czas przechowuje date ostatniego lotu który stworzył 

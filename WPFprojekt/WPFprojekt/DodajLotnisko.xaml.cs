@@ -19,9 +19,10 @@ namespace WPFprojekt
     /// </summary>
     public partial class DodajLotnisko : Window
     {
-        public DodajLotnisko()
+        public DodajLotnisko(Firma ObiektFirmy)
         {
             InitializeComponent();
+            
         }
         private void DodajLotnisko_Click(object sender, RoutedEventArgs e)
         {

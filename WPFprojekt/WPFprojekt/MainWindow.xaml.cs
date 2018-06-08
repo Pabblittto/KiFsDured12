@@ -25,8 +25,10 @@ namespace WPFprojekt
 
 
         public MainWindow()
-        {
+        { 
             InitializeComponent();
+            GlownaFirma.OdczytZPliku();// Funkcja odpale się na początku tylko  raz
+
             Okno.Content = new Glowny();
 
             InitBinding();
@@ -40,10 +42,17 @@ namespace WPFprojekt
 
         }
 
+        ~MainWindow()// destruktor okna
+        {
+            GlownaFirma.ZapisDoPliku();//zapis do pliku kiedy jest wywalane okno
+        }
+
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-
+            GlownaFirma.SprawdzanieStanuLotow();
+            GlownaFirma.SprawdzenieStanuOdbytychLotow();
+            GlownaFirma.BlokujRezerwacje();
             Data.Text = GlownaFirma.WirtualnaDataAktualzacja();
             //throw new NotImplementedException();
         }
@@ -65,10 +74,6 @@ namespace WPFprojekt
             Okno.Content = new Glowny();
         }
 
-        private void Dodaj_Lotnisko(object sender, RoutedEventArgs e)
-        {
-            Okno.Content = new DodawanieLotnisk(this);
-        }
 
         private void Dodaj_Klienta(object sender, RoutedEventArgs e)
         {
@@ -84,7 +89,7 @@ namespace WPFprojekt
         }
         private void Okno_DodajLotnisko(object sender, RoutedEventArgs e)
         {
-            DodajLotnisko oknoLotnisko = new DodajLotnisko();
+            DodajLotnisko oknoLotnisko = new DodajLotnisko(GlownaFirma);
             oknoLotnisko.Owner = this;
             oknoLotnisko.ShowDialog();
             oknoLotnisko = null;
