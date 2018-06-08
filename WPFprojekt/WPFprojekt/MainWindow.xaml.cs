@@ -75,10 +75,6 @@ namespace WPFprojekt
         }
 
 
-        private void Dodaj_Klienta(object sender, RoutedEventArgs e)
-        {
-            Okno.Content = new DodawanieKlientow(this);
-        }
 
         private void Okno_DodajKlienta(object sender, RoutedEventArgs e)
         {
