@@ -94,14 +94,14 @@ namespace WPFprojekt
         }
         private void Okno_DodajTypSamolotu(object sender, RoutedEventArgs e)
         {
-            DodajTypSamolotu oknoTypSamolotu = new DodajTypSamolotu();
+            DodajTypSamolotu oknoTypSamolotu = new DodajTypSamolotu(GlownaFirma);
             oknoTypSamolotu.Owner = this;
             oknoTypSamolotu.ShowDialog();
             oknoTypSamolotu = null;
         }
         private void Okno_DodajTrase(object sender, RoutedEventArgs e)
         {
-            DodajTrase oknoTrasa = new DodajTrase();
+            DodajTrase oknoTrasa = new DodajTrase(GlownaFirma);
             oknoTrasa.Owner = this;
             oknoTrasa.ShowDialog();
             oknoTrasa = null;

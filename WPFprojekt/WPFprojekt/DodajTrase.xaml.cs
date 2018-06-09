@@ -24,7 +24,8 @@ namespace WPFprojekt
     {
         public List<Lotnisko> listaLotnisk = new List<Lotnisko>();
 
-        public DodajTrase()
+        Firma tmp;
+        public DodajTrase(Firma Obiekt)
         {
             InitializeComponent();
             listaLotnisk.Add(new Lotnisko("Lyndon"));
@@ -33,6 +34,7 @@ namespace WPFprojekt
             listaLotnisk.Add(new Lotnisko("Karkow"));
             listaLotnisk.Add(new Lotnisko("Martyd"));
             initBind();
+            tmp = Obiekt;// żeby te okienko widziało główną firmę
         }
         private void initBind()
         {
@@ -72,6 +74,8 @@ namespace WPFprojekt
 
         private void DodajTrase_Click(object sender, RoutedEventArgs e)
         {
+           /* tmp.PrzyciskDodajTrase(lista_Lotnisko.SelectedItem,lista_Lotnisko2.SelectedItem,0) */ 
+
             // tu wywoła się funkcja dodania trasy
             this.DialogResult = true;
             this.Close();

@@ -27,8 +27,11 @@ namespace WPFprojekt
         }
         private void DodajLotnisko_Click(object sender, RoutedEventArgs e)
         {
+            try { tmp.PrzyciskDodajLotnisko(NazwaTextBox.Text); }
+            catch(Wyjatek)
+            {
 
-            tmp.PrzyciskDodajLotnisko(NazwaTextBox.Text);
+            }  
             this.DialogResult = true;
             this.Close();
         }

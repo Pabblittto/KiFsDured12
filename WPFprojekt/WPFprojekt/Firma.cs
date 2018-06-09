@@ -188,11 +188,11 @@ namespace WPFprojekt
             {
                 foreach (Lot Obiekt in ListaLotow)
                 {
-                    if (Obiekt.Droga == Wskazana || Obiekt.Droga == new Trasa(Wskazana))
+                    if (Obiekt.Droga == Wskazana || Obiekt.Droga == new Trasa(Wskazana))// to można uprościc prawdopodobnie do tylko wskazania , bo trase w drugą stronę samoloty robią sobie same
                         throw new Wyjatek("Istnieją loty które mają tą trasę , lub trasę odwróconą");
                 }
                 ListaTras.Remove(Wskazana);
-                ListaTras.Remove(new Trasa(Wskazana));
+                ListaTras.Remove(new Trasa(Wskazana));// gdyby to nie działało to można usunąć tylko jedną trasę , Każdy samolot otrzymuje w konstruktorze nowy obiekt odwróconej trasy
             }
             else
                 throw new Wyjatek("Wybierz obiekt z listy");
@@ -325,13 +325,18 @@ namespace WPFprojekt
                 throw new Wyjatek("Wprowadź inną nazwe lotniska");
         }
 
-        public void PrzyciskDodajTypSamolotow(string Nazwa,int Zasieg, int Predkosc,int Iloscmiejsc, int IloscMiejscVIP)
+        public void PrzyciskDodajTypSamolotow(string Nazwa,string Zasieg, string Predkosc,string Iloscmiejsc, string IloscMiejscVIP)
         {
-            if (Nazwa != "" && Zasieg > 0 && Predkosc > 0 && Iloscmiejsc > 0 && IloscMiejscVIP > 0)
+            int x=0, y=0, z=0, w=0;
+            if(Int32.TryParse(Zasieg,out x)==true || Int32.TryParse(Predkosc, out y) == true || Int32.TryParse(Iloscmiejsc, out z) == true || Int32.TryParse(IloscMiejscVIP, out w) == true )
             {
-                ListaTypow.Add(new TypSamolotu(Nazwa, Zasieg, Predkosc, Iloscmiejsc, IloscMiejscVIP));
+                if (Nazwa != "" && x > 0 && y > 0 && z > 0 && w > 0)
+                {
+                    ListaTypow.Add(new TypSamolotu(Nazwa, x, y, z, w));
+                }
+                else throw new Wyjatek("Błąd wprowadzonych danych!!Sprawdz je");
             }
-            else throw new Wyjatek("Błąd wprowadzonych danych!!Sprawdz je");
+            throw new Wyjatek("Wprowadz odpowiednią liczbe w odpowiednich miejscach");
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
