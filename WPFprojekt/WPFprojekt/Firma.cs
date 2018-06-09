@@ -162,11 +162,41 @@ namespace WPFprojekt
             else throw new Wyjatek("Wybierz Lot z listy");
         }
 
-        public void PrzyciskUsunLotnisko()
+        public void PrzyciskUsunLotnisko(Lotnisko Wskazane )
         {
+            if (Wskazane != null)
+            {
+                foreach (Trasa Obiekt in ListaTras)
+                {
+                    if (Obiekt.Lotnisko1 == Wskazane || Obiekt.Lotnisko2 == Wskazane)
+                        throw new Wyjatek("Istnieją Trasy zawierające te lotnisko, Usun te trasy");
+                }
+                ListaLotnisk.Remove(Wskazane);
 
+            }
+            else
+                throw new Wyjatek("Wybierz obiket z listy");
         }
 
+        /// <summary>
+        /// Usunięcie trzasy wiąże się z usunięciem trasy odwróconej!!!
+        /// </summary>
+        /// <param name="Wskazana"></param>
+        public void PrzyciskUsunTrase(Trasa Wskazana)////////////////////////////////////////////// Nie wiem czy zadzaiła!!!!!!!
+        {
+            if (Wskazana != null)
+            {
+                foreach (Lot Obiekt in ListaLotow)
+                {
+                    if (Obiekt.Droga == Wskazana || Obiekt.Droga == new Trasa(Wskazana))
+                        throw new Wyjatek("Istnieją loty które mają tą trasę , lub trasę odwróconą");
+                }
+                ListaTras.Remove(Wskazana);
+                ListaTras.Remove(new Trasa(Wskazana));
+            }
+            else
+                throw new Wyjatek("Wybierz obiekt z listy");
+        }
 
         // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
