@@ -71,6 +71,20 @@ namespace WPFprojekt
                 okienko.ShowDialog();
                 okienko = null;
             }
+            catch(FormatException)
+            {
+                OkienkoBledy okienko = new OkienkoBledy("Wpisz liczbę w odległości!!");
+                okienko.Owner = this;
+                okienko.ShowDialog();
+                okienko = null;
+            }
+            catch(OverflowException)
+            {
+                OkienkoBledy okienko = new OkienkoBledy("Liczba powinna być dodatnia!!");
+                okienko.Owner = this;
+                okienko.ShowDialog();
+                okienko = null;
+            }
             this.DialogResult = true;
             this.Close();
         }
