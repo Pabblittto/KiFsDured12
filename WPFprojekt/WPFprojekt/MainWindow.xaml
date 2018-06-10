@@ -16,7 +16,10 @@
                     <MenuItem Header="Trasa" Click="Okno_DodajTrase"/>
                     <MenuItem Header="Lot jednorazowy"/>
                     <MenuItem Header="Lot cykliczny"/>
-                    <MenuItem Header="Klient" Click="Okno_DodajKlienta"/>
+                    <MenuItem Header="Klient">
+                        <MenuItem Header="Osoba" Click="Okno_DodajKlienta"/>
+                        <MenuItem Header="Posrednik" Click="Okno_DodajPosrednika"/>
+                    </MenuItem>
                     <MenuItem Header="Samolot">
                         <MenuItem Header="Typ" Click="Okno_DodajTypSamolotu"/>
                         <MenuItem Header="Model"/>

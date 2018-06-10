@@ -1,0 +1,52 @@
+﻿<Window x:Class="WPFprojekt.DodajPosrednika"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFprojekt"
+        mc:Ignorable="d"
+        Title="Dodaj Posrednika" Height="170" Width="300" WindowStartupLocation="CenterScreen" MinHeight="170" MinWidth="300" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <GroupBox Grid.Column="1" Grid.Row="1" Header="Klient" Margin="10,5,10,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"><Run Text="Nazwa:"/></TextBlock>
+                <TextBox x:Name="NazwaTextBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
+
+                <CheckBox x:Name="CzyWazny" Content="Czy ważny" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left"></CheckBox>
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajPosrednika_Click"></Button>
+            <Button x:Name="Anuluj" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Anuluj_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

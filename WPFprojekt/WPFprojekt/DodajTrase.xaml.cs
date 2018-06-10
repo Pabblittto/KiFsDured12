@@ -39,38 +39,29 @@ namespace WPFprojekt
         private void initBind()
         {
             lista_Lotnisko.ItemsSource = listaLotnisk;
-            lista_Lotnisko2.ItemsSource = listaLotnisk;
             CollectionView Lista1 = (CollectionView)CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource);
-            CollectionView Lista2 = (CollectionView)CollectionViewSource.GetDefaultView(lista_Lotnisko2.ItemsSource);
             Lista1.Filter = NameFilter;
-            Lista2.Filter = Name2Filter;
         }
-
         private bool NameFilter(object item)
         {
-            if (String.IsNullOrEmpty(Nazwa1TextBox.Text))
+            if (String.IsNullOrEmpty(NazwaTextBox.Text))
                 return true;
             else
-                return ((item as Lotnisko).IDLotniska.IndexOf(Nazwa1TextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as Lotnisko).IDLotniska.IndexOf(NazwaTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
-        private bool Name2Filter(object item)
-        {
-            if (String.IsNullOrEmpty(Nazwa2TextBox.Text))
-                return true;
-            else
-                return ((item as Lotnisko).IDLotniska.IndexOf(Nazwa2TextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-
-        }
-        private void Nazwa1Szukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void NazwaSzukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource).Refresh();
         }
-        private void Nazwa2Szukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
+
+        private void Lotnisko1_Click(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(lista_Lotnisko2.ItemsSource).Refresh();
+        
         }
+        private void Lotnisko2_Click(object sender, RoutedEventArgs e)
+        {
 
-
+        }
 
         private void DodajTrase_Click(object sender, RoutedEventArgs e)
         {

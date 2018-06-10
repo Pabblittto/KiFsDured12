@@ -27,7 +27,7 @@ namespace WPFprojekt
         public MainWindow()
         { 
             InitializeComponent();
-            GlownaFirma.OdczytZPliku();// Funkcja odpale się na początku tylko  raz
+            //GlownaFirma.OdczytZPliku();// Funkcja odpale się na początku tylko  raz
 
             Okno.Content = new Glowny();
 
@@ -84,6 +84,13 @@ namespace WPFprojekt
             oknoKlient.Owner = this;
             oknoKlient.ShowDialog();
             oknoKlient = null;
+        }
+        private void Okno_DodajPosrednika(object sender, RoutedEventArgs e)
+        {
+            DodajPosrednika oknoPosrednik = new DodajPosrednika();
+            oknoPosrednik.Owner = this;
+            oknoPosrednik.ShowDialog();
+            oknoPosrednik = null;
         }
         private void Okno_DodajLotnisko(object sender, RoutedEventArgs e)
         {

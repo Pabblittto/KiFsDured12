@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-        Title="Dodaj Trase" Height="400" Width="460" WindowStartupLocation="CenterScreen" MinHeight="400" MinWidth="460" >
+        Title="Dodaj Trase" Height="340" Width="300" WindowStartupLocation="CenterScreen" MinHeight="340" MinWidth="300" >
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="440"/>
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="260"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -27,30 +27,34 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="1"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="160"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"><Run Text="Nazwa:"/></TextBlock>
-                <TextBox x:Name="Nazwa1TextBox" TextChanged="Nazwa1Szukana" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
 
-                <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"><Run Text="Nazwa:"/></TextBlock>
-                <TextBox x:Name="Nazwa2TextBox" TextChanged="Nazwa2Szukana" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
-
-                <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"><Run Text="Lotnisko1:"/></TextBlock>
-                <ListView x:Name="lista_Lotnisko" Grid.Column="1" Grid.Row="3">
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Nazwa:"/></TextBlock>
+                    <TextBox x:Name="NazwaTextBox" TextChanged="NazwaSzukana" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
+                </StackPanel>
+                
+                <ListView x:Name="lista_Lotnisko" Grid.Column="1" Grid.Row="2">
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn Header="Nazwa"
                             DisplayMemberBinding="{Binding IDLotniska}"/>
                             </GridView.Columns>
@@ -58,19 +62,8 @@
                     </ListView.View>
                 </ListView>
 
-                <TextBlock Grid.Column="2" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"><Run Text="Lotnisko2:"/></TextBlock>
-                <ListView x:Name="lista_Lotnisko2" Grid.Column="2" Grid.Row="3">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn Header="Nazwa"
-                            DisplayMemberBinding="{Binding IDLotniska}"/>
-                            </GridView.Columns>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                
-                
+                <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Wybierz dwa lotniska aby utworzyć trasę między nimi"/></TextBlock>
+
             </Grid>
         </GroupBox>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
