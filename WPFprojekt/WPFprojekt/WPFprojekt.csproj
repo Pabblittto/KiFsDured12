@@ -80,6 +80,9 @@
     <Compile Include="Trasa.cs" />
     <Compile Include="TypSamolotu.cs" />
     <Compile Include="Wyjątek.cs" />
+    <Compile Include="ZarzadzajTrasami.xaml.cs">
+      <DependentUpon>ZarzadzajTrasami.xaml</DependentUpon>
+    </Compile>
     <Page Include="DodajKlienta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +139,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OkienkoBledy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ZarzadzajTrasami.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

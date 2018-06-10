@@ -22,23 +22,17 @@ namespace WPFprojekt
     /// </summary>
     public partial class DodajTrase : Window
     {
-        public List<Lotnisko> listaLotnisk = new List<Lotnisko>();
         Firma tmp;
 
         public DodajTrase(Firma Obiekt)
         {
             InitializeComponent();
-            listaLotnisk.Add(new Lotnisko("Lyndon"));
-            listaLotnisk.Add(new Lotnisko("Berlon"));
-            listaLotnisk.Add(new Lotnisko("Mokswa"));
-            listaLotnisk.Add(new Lotnisko("Karkow"));
-            listaLotnisk.Add(new Lotnisko("Martyd"));
-            initBind();
             tmp = Obiekt;// żeby te okienko widziało główną firmę
+            initBind();
         }
         private void initBind()
         {
-            lista_Lotnisko.ItemsSource = listaLotnisk;
+            lista_Lotnisko.ItemsSource = tmp.ListaLotnisk;
             CollectionView Lista1 = (CollectionView)CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource);
             Lista1.Filter = NameFilter;
         }
@@ -54,11 +48,29 @@ namespace WPFprojekt
             CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource).Refresh();
         }
 
+        private void lista_Lotnisko_Zmiana(object sender, SelectionChangedEventArgs e)
+        {
+            if (lista_Lotnisko.SelectedItems.Count == 2) Dodaj.IsEnabled = true;
+            else Dodaj.IsEnabled = false;
+        }
+
+
+
         private void DodajTrase_Click(object sender, RoutedEventArgs e)
         {
-           /* tmp.PrzyciskDodajTrase(lista_Lotnisko.SelectedItem,lista_Lotnisko2.SelectedItem,0) */ 
-
-            // tu wywoła się funkcja dodania trasy
+            List<Lotnisko> ListaLotnisk = new List<Lotnisko>();
+            foreach (Lotnisko lotnisko in lista_Lotnisko.SelectedItems)
+            {
+                ListaLotnisk.Add(lotnisko);
+            }
+            try { tmp.PrzyciskDodajTrase(ListaLotnisk[0], ListaLotnisk[1], Convert.ToUInt32(OdlegloscTextBox.Text)); }
+            catch (Wyjatek elo)
+            {
+                OkienkoBledy okienko = new OkienkoBledy(elo.Wiadomosc);
+                okienko.Owner = this;
+                okienko.ShowDialog();
+                okienko = null;
+            }
             this.DialogResult = true;
             this.Close();
         }

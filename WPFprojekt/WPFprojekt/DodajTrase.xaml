@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-        Title="Dodaj Trase" Height="340" Width="300" WindowStartupLocation="CenterScreen" MinHeight="340" MinWidth="300" >
+        Title="Dodaj Trase" Height="370" Width="300" WindowStartupLocation="CenterScreen" MinHeight="370" MinWidth="300" >
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,7 +16,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="260"/>
+            <RowDefinition Height="290"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -34,6 +34,7 @@
                     <RowDefinition Height="1"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="150"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="1"/>
                 </Grid.RowDefinitions>
@@ -43,8 +44,8 @@
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Nazwa:"/></TextBlock>
                     <TextBox x:Name="NazwaTextBox" TextChanged="NazwaSzukana" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
                 </StackPanel>
-                
-                <ListView x:Name="lista_Lotnisko" Grid.Column="1" Grid.Row="2">
+
+                <ListView x:Name="lista_Lotnisko" Grid.Column="1" Grid.Row="2" SelectionChanged="lista_Lotnisko_Zmiana">
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
@@ -61,12 +62,17 @@
                     </ListView.View>
                 </ListView>
 
-                <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Wybierz dwa lotniska aby utworzyć trasę między nimi"/></TextBlock>
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0" ><Run Text="Odleglość:"/></TextBlock>
+                    <TextBox x:Name="OdlegloscTextBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
+                </StackPanel>
+                
+                <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" ><Run Text="Wybierz dwa lotniska aby utworzyć trasę między nimi"/></TextBlock>
 
             </Grid>
         </GroupBox>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajTrase_Click"></Button>
+            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajTrase_Click" IsEnabled="False"></Button>
             <Button x:Name="Anuluj" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Anuluj_Click"></Button>
         </StackPanel>
     </Grid>

@@ -1,22 +1,22 @@
-﻿<Window x:Class="WPFprojekt.DodajSamolot"
+﻿<Window x:Class="WPFprojekt.ZarzadzajTrasami"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-       Title="Dodaj Samolot" Height="320" Width="340" WindowStartupLocation="CenterScreen" MinHeight="320" MinWidth="340" >
+        Title="Zarządzaj trasami" Height="370" Width="300" WindowStartupLocation="CenterScreen" MinHeight="370" MinWidth="300" >
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="240"/>
+            <RowDefinition Height="290"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -33,42 +33,34 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="230"/>
                     <RowDefinition Height="1"/>
                 </Grid.RowDefinitions>
 
 
                 <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,20,0" ><Run Text="Nazwa modelu:"/></TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Nazwa:"/></TextBlock>
                     <TextBox x:Name="NazwaTextBox" TextChanged="NazwaSzukana" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
                 </StackPanel>
 
-                <ListView x:Name="lista_TypSamolotu" Grid.Column="1" Grid.Row="2">
+                <ListView x:Name="lista_Trasa" Grid.Column="1" Grid.Row="2">
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
-                                <GridViewColumn Header="Model" DisplayMemberBinding="{Binding NazwaModelu}"/>
-                                <GridViewColumn Header="Zasięg" DisplayMemberBinding="{Binding Zasieg}"/>
-                                <GridViewColumn Header="Pedkość" DisplayMemberBinding="{Binding Predkosc}"/>
-                                <GridViewColumn Header="Miejsca" DisplayMemberBinding="{Binding IloscMiejsc}"/>
-                                <GridViewColumn Header="MiejscaVIP" DisplayMemberBinding="{Binding IloscMiejscVIP}"/>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding IDTrasy}"/>
+                                <GridViewColumn Header="Z" DisplayMemberBinding="{Binding Lotnisko1.IDLotniska}"/>
+                                <GridViewColumn Header="Do" DisplayMemberBinding="{Binding Lotnisko2.IDLotniska}"/>
+                                <GridViewColumn Header="Odleglosc" DisplayMemberBinding="{Binding Odleglosc}"/>
                             </GridView.Columns>
                         </GridView>
                     </ListView.View>
                 </ListView>
-
-                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,80,0" ><Run Text="Ilość:"/></TextBlock>
-                    <TextBox x:Name="IloscTextBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
-                </StackPanel>
-
-
             </Grid>
         </GroupBox>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajSamolot_Click"></Button>
+            <Button x:Name="Dodaj" Content="Dodaj" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DodajTrase_Click" IsEnabled="False"></Button>
             <Button x:Name="Anuluj" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Anuluj_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>
+

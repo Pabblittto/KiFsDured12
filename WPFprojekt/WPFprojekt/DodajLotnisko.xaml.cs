@@ -34,7 +34,7 @@ namespace WPFprojekt
                 okienko.Owner = this;
                 okienko.ShowDialog();
                 okienko = null;
-            }  
+            }
             this.DialogResult = true;
             this.Close();
         }

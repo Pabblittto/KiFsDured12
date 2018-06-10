@@ -460,9 +460,9 @@ namespace WPFprojekt
         /// </summary>
         /// <param name="Lotnis1"></param>
         /// <param name="Lotnis2"></param>
-        public static Boolean CzyLotniskaRozne(Lotnisko Lotnis1,Lotnisko Lotnis2 )
+        public static Boolean CzyLotniskaRozne(Lotnisko Lotnis1, Lotnisko Lotnis2 )
         {
-            if (Lotnis1 == Lotnis2)
+            if (Lotnis1==Lotnis2)
                 return true;
             else
                 return false;

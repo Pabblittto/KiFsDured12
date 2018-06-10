@@ -32,6 +32,7 @@ namespace WPFprojekt
             Okno.Content = new Glowny();
 
             InitBinding();
+            GlownaFirma.ListaTras.Add(new Trasa(GlownaFirma.ListaLotnisk[0], GlownaFirma.ListaLotnisk[1], 100));
 
             DispatcherTimer timer = new DispatcherTimer
             {
@@ -118,6 +119,14 @@ namespace WPFprojekt
             oknoTrasa.Owner = this;
             oknoTrasa.ShowDialog();
             oknoTrasa = null;
+        }
+
+        private void Okno_ZarzadzajTrasami(object sender, RoutedEventArgs e)
+        {
+            ZarzadzajTrasami oknoZarzadzajTrasami = new ZarzadzajTrasami(GlownaFirma);
+            oknoZarzadzajTrasami.Owner = this;
+            oknoZarzadzajTrasami.ShowDialog();
+            oknoZarzadzajTrasami = null;
         }
     }
 }

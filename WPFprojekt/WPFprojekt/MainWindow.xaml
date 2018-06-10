@@ -26,6 +26,10 @@
                     </MenuItem>
                     <Separator/>
                 </MenuItem>
+                <MenuItem x:Name="ZarzadzajRozwijaj" Header="Zarzadzaj" Background="Gainsboro" FontSize="16" Height="35"  >
+                    <MenuItem Header="Trasy" Click="Okno_ZarzadzajTrasami"/>
+                    <Separator/>
+                </MenuItem>
                 <MenuItem x:Name="Rezerwuj" Header="Zarezerwuj/Kup bilet" FontSize="16" Click="FunkcjaRezerwuj"  Height="35" BorderBrush="Gainsboro"/>
                 <MenuItem x:Name="StronaGlowna" Header="Strona główna" FontSize="16" Click="WyswietlGlowna" BorderBrush="Gainsboro" />
             </Menu>
