@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-       Title="Dodaj Trase" Height="340" Width="300" WindowStartupLocation="CenterScreen" MinHeight="340" MinWidth="300" >
+       Title="Dodaj Samolot" Height="340" Width="340" WindowStartupLocation="CenterScreen" MinHeight="340" MinWidth="340" >
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="320"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -40,7 +40,7 @@
 
 
                 <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Nazwa:"/></TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0" ><Run Text="Nazwa modelu:"/></TextBlock>
                     <TextBox x:Name="NazwaTextBox" TextChanged="NazwaSzukana" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
                 </StackPanel>
 
@@ -58,7 +58,11 @@
                     </ListView.View>
                 </ListView>
 
-                <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0" ><Run Text="Wybierz dwa lotniska aby utworzyć trasę między nimi"/></TextBlock>
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0" ><Run Text="Ilosc:"/></TextBlock>
+                    <TextBox x:Name="IloscTextBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160"></TextBox>
+                </StackPanel>
+
 
             </Grid>
         </GroupBox>
