@@ -63,6 +63,9 @@
     <Compile Include="DodajPosrednika.xaml.cs">
       <DependentUpon>DodajPosrednika.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DodajSamolot.xaml.cs">
+      <DependentUpon>DodajSamolot.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DodajTrase.xaml.cs">
       <DependentUpon>DodajTrase.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DodajPosrednika.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DodajSamolot.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

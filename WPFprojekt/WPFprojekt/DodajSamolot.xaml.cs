@@ -1,7 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,34 +10,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPFprojekt
 {
     /// <summary>
-    /// Logika interakcji dla klasy DodajTrase.xaml
+    /// Logika interakcji dla klasy DodajSamolot.xaml
     /// </summary>
-    public partial class DodajTrase : Window
+    public partial class DodajSamolot : Window
     {
-        public List<Lotnisko> listaLotnisk = new List<Lotnisko>();
+        public List<TypSamolotu> listaTest = new List<TypSamolotu>();
         Firma tmp;
 
-        public DodajTrase(Firma Obiekt)
+        public DodajSamolot(Firma Obiekt)
         {
             InitializeComponent();
-            listaLotnisk.Add(new Lotnisko("Lyndon"));
-            listaLotnisk.Add(new Lotnisko("Berlon"));
-            listaLotnisk.Add(new Lotnisko("Mokswa"));
-            listaLotnisk.Add(new Lotnisko("Karkow"));
-            listaLotnisk.Add(new Lotnisko("Martyd"));
+            listaTest.Add(new TypSamolotu("Ajirbuc", 100, 100, 100, 100));
+            listaTest.Add(new TypSamolotu("Bojeng", 101, 101, 101, 101));
+            listaTest.Add(new TypSamolotu("Tuplowew", 101, 101, 101, 101));
             initBind();
             tmp = Obiekt;// żeby te okienko widziało główną firmę
         }
         private void initBind()
         {
-            lista_Lotnisko.ItemsSource = listaLotnisk;
-            CollectionView Lista1 = (CollectionView)CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource);
+            lista_TypSamolotu.ItemsSource = listaTest;
+            CollectionView Lista1 = (CollectionView)CollectionViewSource.GetDefaultView(lista_TypSamolotu.ItemsSource);
             Lista1.Filter = NameFilter;
         }
         private bool NameFilter(object item)
@@ -47,18 +42,15 @@ namespace WPFprojekt
             if (String.IsNullOrEmpty(NazwaTextBox.Text))
                 return true;
             else
-                return ((item as Lotnisko).IDLotniska.IndexOf(NazwaTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as TypSamolotu).NazwaModelu.IndexOf(NazwaTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
         private void NazwaSzukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(lista_TypSamolotu.ItemsSource).Refresh();
         }
 
-        private void DodajTrase_Click(object sender, RoutedEventArgs e)
+        private void DodajSamolot_Click(object sender, RoutedEventArgs e)
         {
-           /* tmp.PrzyciskDodajTrase(lista_Lotnisko.SelectedItem,lista_Lotnisko2.SelectedItem,0) */ 
-
-            // tu wywoła się funkcja dodania trasy
             this.DialogResult = true;
             this.Close();
         }

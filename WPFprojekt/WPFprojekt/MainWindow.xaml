@@ -22,7 +22,7 @@
                     </MenuItem>
                     <MenuItem Header="Samolot">
                         <MenuItem Header="Typ" Click="Okno_DodajTypSamolotu"/>
-                        <MenuItem Header="Model"/>
+                        <MenuItem Header="Model" Click="Okno_DodajSamolot"/>
                     </MenuItem>
                     <Separator/>
                 </MenuItem>
