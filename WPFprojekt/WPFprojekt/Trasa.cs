@@ -36,6 +36,7 @@ namespace WPFprojekt
             this.Lotnisko1 = Droga.Lotnisko2;
             this.Lotnisko2 = Droga.Lotnisko1;
             Odleglosc = Droga.Odleglosc;
+            this.IDTrasy = Lotnisko1.GetIDLotniska() + "-" + Lotnisko2.GetIDLotniska();
         }
 
         public int GetOdleglosc()

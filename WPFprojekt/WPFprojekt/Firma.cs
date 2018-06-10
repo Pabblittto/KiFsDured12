@@ -298,7 +298,7 @@ namespace WPFprojekt
         /// </summary>
         public void PrzyciskDodajTrase(Lotnisko Lot1,Lotnisko Lot2,uint odl)
         {
-            if (Firma.CzyLotniskaRozne(Lot1, Lot2) == true && odl!=0)
+            if (Firma.CzyLotniskaRozne(Lot1, Lot2) == true || odl>0)
             {
                 this.DodajTrase(Lot1, Lot2,(int)odl);
             }
