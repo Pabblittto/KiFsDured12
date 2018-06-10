@@ -19,9 +19,12 @@ namespace WPFprojekt
     /// </summary>
     public partial class DodajPosrednika : Window
     {
-        public DodajPosrednika()
+        Firma tmp;
+
+        public DodajPosrednika(Firma Obiekt)
         {
             InitializeComponent();
+            tmp = Obiekt;
         }
         private void DodajPosrednika_Click(object sender, RoutedEventArgs e)
         {

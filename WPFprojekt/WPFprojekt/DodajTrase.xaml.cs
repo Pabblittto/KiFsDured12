@@ -23,8 +23,8 @@ namespace WPFprojekt
     public partial class DodajTrase : Window
     {
         public List<Lotnisko> listaLotnisk = new List<Lotnisko>();
-
         Firma tmp;
+
         public DodajTrase(Firma Obiekt)
         {
             InitializeComponent();
@@ -52,15 +52,6 @@ namespace WPFprojekt
         private void NazwaSzukana(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(lista_Lotnisko.ItemsSource).Refresh();
-        }
-
-        private void Lotnisko1_Click(object sender, RoutedEventArgs e)
-        {
-        
-        }
-        private void Lotnisko2_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void DodajTrase_Click(object sender, RoutedEventArgs e)

@@ -87,7 +87,7 @@ namespace WPFprojekt
         }
         private void Okno_DodajPosrednika(object sender, RoutedEventArgs e)
         {
-            DodajPosrednika oknoPosrednik = new DodajPosrednika();
+            DodajPosrednika oknoPosrednik = new DodajPosrednika(GlownaFirma);
             oknoPosrednik.Owner = this;
             oknoPosrednik.ShowDialog();
             oknoPosrednik = null;
@@ -105,6 +105,13 @@ namespace WPFprojekt
             oknoTypSamolotu.Owner = this;
             oknoTypSamolotu.ShowDialog();
             oknoTypSamolotu = null;
+        }
+        private void Okno_DodajSamolot(object sender, RoutedEventArgs e)
+        {
+            DodajSamolot oknoSamolot = new DodajSamolot(GlownaFirma);
+            oknoSamolot.Owner = this;
+            oknoSamolot.ShowDialog();
+            oknoSamolot = null;
         }
         private void Okno_DodajTrase(object sender, RoutedEventArgs e)
         {
