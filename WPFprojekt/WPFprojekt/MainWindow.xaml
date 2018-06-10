@@ -30,7 +30,7 @@
                 <MenuItem x:Name="StronaGlowna" Header="Strona główna" FontSize="16" Click="WyswietlGlowna" BorderBrush="Gainsboro" />
             </Menu>
             <TextBlock Text="Aktualna Data: " FontSize="24"/>
-            <TextBlock  x:Name="Data"    FontSize="24"  />
+            <TextBlock  x:Name="Data" Text="{Binding WirtualnaData}"   FontSize="24"  />
         </StackPanel>
         <Grid Margin="0,35,0,0">
 

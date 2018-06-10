@@ -69,6 +69,9 @@
     <Compile Include="DodajTypSamolotu.xaml.cs">
       <DependentUpon>DodajTypSamolotu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OkienkoBledy.xaml.cs">
+      <DependentUpon>OkienkoBledy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Rezerwacja.cs" />
     <Compile Include="Samolot.cs" />
     <Compile Include="Trasa.cs" />
@@ -125,6 +128,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OkienkoBledy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Osoba.cs" />

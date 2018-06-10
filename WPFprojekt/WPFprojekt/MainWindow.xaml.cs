@@ -27,7 +27,7 @@ namespace WPFprojekt
         public MainWindow()
         { 
             InitializeComponent();
-            //GlownaFirma.OdczytZPliku();// Funkcja odpale się na początku tylko  raz
+            GlownaFirma.OdczytZPliku();// Funkcja odpale się na początku tylko  raz
 
             Okno.Content = new Glowny();
 
@@ -56,7 +56,6 @@ namespace WPFprojekt
             GlownaFirma.SprawdzenieStanuOdbytychLotow();
             GlownaFirma.BlokujRezerwacje();
             Data.Text = GlownaFirma.WirtualnaDataAktualzacja();
-            //throw new NotImplementedException();
         }
 
         private void InitBinding()
