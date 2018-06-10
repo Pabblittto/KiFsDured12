@@ -300,6 +300,11 @@ namespace WPFprojekt
         {
             if (Firma.CzyLotniskaRozne(Lot1, Lot2) == true || odl>0)
             {
+                foreach (Trasa Obiekt in ListaTras)
+                {
+                    if ((Obiekt.Lotnisko1==Lot1 && Obiekt.Lotnisko2==Lot2) ||(Obiekt.Lotnisko1==Lot2 && Obiekt.Lotnisko2==Lot1))
+                        throw new Wyjatek("Istnieje już taka trasa!");
+                }
                 this.DodajTrase(Lot1, Lot2,(int)odl);
             }
             else
