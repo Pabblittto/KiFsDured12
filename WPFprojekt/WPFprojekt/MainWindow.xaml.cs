@@ -32,7 +32,7 @@ namespace WPFprojekt
             Okno.Content = new Glowny();
 
             InitBinding();
-            GlownaFirma.ListaTras.Add(new Trasa(GlownaFirma.ListaLotnisk[0], GlownaFirma.ListaLotnisk[1], 100));
+            //GlownaFirma.ListaTras.Add(new Trasa(GlownaFirma.ListaLotnisk[0], GlownaFirma.ListaLotnisk[1], 100));
 
             DispatcherTimer timer = new DispatcherTimer
             {

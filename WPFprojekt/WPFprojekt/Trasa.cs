@@ -12,8 +12,8 @@ namespace WPFprojekt
     [Serializable]
     public class Trasa
     {
-        public Lotnisko Lotnisko1;
-        public Lotnisko Lotnisko2;
+        public Lotnisko Lotnisko1 { get; set; }
+        public Lotnisko Lotnisko2 { get; set; }
 
         public int Odleglosc { get; set; }// podawana w km
 
